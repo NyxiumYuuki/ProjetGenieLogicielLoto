@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>fr.myny</groupId>
+    <artifactId>ProjetGenieLogicielLoto</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>ProjetGenieLogicielLoto</name>
+    <description>${project.artifactId} is a school project for the subject Genie Logiciel</description>
+
+    <developers>
+        <developer>
+            <name>Yûki Vachot</name>
+            <id>yv</id>
+            <email>yuki@vachot.fr</email>
+            <url>https://github.com/NyxiumYuuki/</url>
+        </developer>
+        <developer>
+            <name>Maxime Havgoudoukian</name>
+            <id>mh</id>
+            <email>maxime.havgoudoukian@etu.univ-amu.fr</email>
+            <url>https://github.com/MHAVGOUDOUKIAN</url>
+        </developer>
+        <developer>
+            <name>Nicolas Fabregas</name>
+            <id>nf</id>
+            <email>nicolas.fabregas@etu.univ-amu.fr</email>
+            <url>https://github.com/NicolasFabregas</url>
+        </developer>
+        <developer>
+            <name>Yann Tho</name>
+            <id>yt</id>
+            <email>yann.tho@etu.univ-amu.fr</email>
+            <url>https://github.com/YanNThO</url>
+        </developer>
+    </developers>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>13</maven.compiler.source>
+        <maven.compiler.target>13</maven.compiler.target>
+        <junit.jupiter.version>5.7.0</junit.jupiter.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
