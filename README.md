@@ -11,9 +11,11 @@ Le projet se compose d'un groupe de 4 personnes :
 
 ## Liens Utiles
 - [Sujet du Projet](https://github.com/NyxiumYuuki/ProjetGenieLogicielLoto/blob/main/Projet-GL.pdf)
+- [Information réunion](https://docs.google.com/document/d/17GW6Tm3U7TTt2mmF_BsABNsuf4z7Tq6mvUyYG6RrcKw/edit)
 - [GitHub Project](https://github.com/users/NyxiumYuuki/projects/3)
 - [GitHub Repository](https://github.com/NyxiumYuuki/ProjetGenieLogicielLoto)
 - [Visual SiteMap on GlooMaps](https://www.gloomaps.com/MZjgQh64zw)
+- [Visual SiteMap Class on GlooMaps](https://www.gloomaps.com/q4hm67fsaR)
 - [Quick Setup of Git on VSCode](https://github.com/NyxiumYuuki/Projet-C-Huffman/blob/master/README.md)
 
 ## Livrable
