@@ -1,5 +1,8 @@
 package fr.myny.grid;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class BuildGrid {
 
     private int m_dim_x;
@@ -38,22 +41,22 @@ public class BuildGrid {
      SETTERS & GETTERS
      */
 
-    private int getDimX ()
+    public int getDimX ()
     {
         return m_dim_x;
     }
 
-    private int getDimY ()
+    public int getDimY ()
     {
         return m_dim_y;
     }
 
-    private void setDimX (int value)
+    public void setDimX (int value)
     {
         m_dim_x = value;
     }
 
-    private void setDimY (int value)
+    public void setDimY (int value)
     {
         m_dim_y = value;
     }
@@ -65,6 +68,15 @@ public class BuildGrid {
     public void putValue(float value, int posX, int posY)
     {
         m_grid[posX][posY] = value;
+    }
+
+    public float getValue(int posX, int posY)
+    {
+        return m_grid[posX][posY];
+    }
+
+    public float[][] getM_grid() {
+        return m_grid;
     }
 
     public void displayGrid ()
@@ -86,5 +98,20 @@ public class BuildGrid {
                 m_grid[i][y] = value;
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BuildGrid buildGrid = (BuildGrid) o;
+        return m_dim_x == buildGrid.m_dim_x && m_dim_y == buildGrid.m_dim_y && Arrays.equals(m_grid, buildGrid.m_grid);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(m_dim_x, m_dim_y);
+        result = 31 * result + Arrays.hashCode(m_grid);
+        return result;
     }
 }
