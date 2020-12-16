@@ -7,7 +7,7 @@ public class BuildGrid {
 
     private int m_dim_x;
     private int m_dim_y;
-    private float m_grid[][];
+    private double m_grid[][];
 
     /*
      CONSTRUCTOR
@@ -17,7 +17,7 @@ public class BuildGrid {
     {
         System.out.print("Creating a new grid: ");
 
-        m_grid = new float[dim][dim];
+        m_grid = new double[dim][dim];
         setDimX(dim);
         setDimY(dim);
 
@@ -29,7 +29,7 @@ public class BuildGrid {
     {
         System.out.print("Creating a new grid: ");
 
-        m_grid = new float[dim_x][dim_y];
+        m_grid = new double[dim_x][dim_y];
         setDimX(dim_x);
         setDimY(dim_y);
 
@@ -70,12 +70,12 @@ public class BuildGrid {
         m_grid[posX][posY] = value;
     }
 
-    public float getValue(int posX, int posY)
+    public double getValue(int posX, int posY)
     {
         return m_grid[posX][posY];
     }
 
-    public float[][] getM_grid() {
+    public double[][] getM_grid() {
         return m_grid;
     }
 
