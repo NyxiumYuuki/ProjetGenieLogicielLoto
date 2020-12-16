@@ -22,4 +22,8 @@ public class ImportData {
      */
     public void getUrl(){
     }
+
+    public void unzip() {
+
+    }
 }
