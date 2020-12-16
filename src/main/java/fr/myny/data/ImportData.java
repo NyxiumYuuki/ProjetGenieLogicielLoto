@@ -21,6 +21,5 @@ public class ImportData {
      * La methode de recuperation de l URL
      */
     public void getUrl(){
-
     }
 }
