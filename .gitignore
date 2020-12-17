@@ -36,3 +36,4 @@ target/**/*
 build/**/*
 gen/**/*
 out/**/*
+.idea/
