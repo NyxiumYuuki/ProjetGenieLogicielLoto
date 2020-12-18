@@ -5,6 +5,7 @@ import java.util.*;
 import java.io.*;
 import java.util.concurrent.*;
 import com.mysql.jdbc.Driver;
+import org.mariadb.jdbc.internal.com.read.dao.Results;
 
 import javax.sql.DataSource;
 
@@ -13,18 +14,18 @@ import javax.sql.DataSource;
  */
 
 public class DataBase {
-    public static String url="jdbc:mariadb://vachot.fr:3306?user=mynynicolas&password=Bw0po64*";
-    Connection conn;
+    //public static String url="jdbc:mariadb://vachot.fr:3306?user=mynynicolas&password=Bw0po64*";
 
-    boolean test;
+    public static String url="jdbc:mariadb://phpmyadmin.vachot.fr:3306?db=myny&user=mynynicolas&password=Bw0po64*";
+    Connection conn;
     /**
      * Le constructeur de DataBase
      */
     public DataBase(){
-        try{getConnection();}
+        /*try{getConnection();}
         catch(SQLException sqle){
             System.out.print(sqle);
-        }
+        }*/
     }
 
     /**
@@ -46,36 +47,40 @@ public class DataBase {
      */
     public void createDataBase() {
         String sql="CREATE TABLE IF NOT EXISTS myny.Test_Table ("+
-            "annee_numero_de_tirage INTEGER,"+
-            "jour_de_tirage CHAR(10),"+
-            "date_de_tirage DATE,"+
-            "date_de_forclusion DATE,"+
-            "boule_1 TINYINT,"+
-            "boule_2 TINYINT,"+
-            "boule_3 TINYINT,"+
-            "boule_4 TINYINT,"+
-            "boule_5 TINYINT,"+
-            "numero_chance TINYINT,"+
-            "combinaison_gagnante_en_ordre_croissantchar(20),"+
-            "nombre_de_gagnant_au_rang1 INTEGER,"+
-            "rapport_du_rang1 INTEGER,"+
-            "nombre_de_gagnant_au_rang2 INTEGER,"+
-            "rapport_du_rang2 INTEGER,"+
-            "nombre_de_gagnant_au_rang3 INTEGER,"+
-            "rapport_du_rang3 INTEGER,"+
-            "nombre_de_gagnant_au_rang4 INTEGER,"+
-            "rapport_du_rang4 INTEGER,"+
-            "nombre_de_gagnant_au_rang5 INTEGER,"+
-            "rapport_du_rang5 INTEGER,"+
-            "nombre_de_gagnant_au_rang6 INTEGER,"+
-            "rapport_du_rang6 INTEGER,"+
-            "numero_jokerplus INTEGER,"+
-            "deviseCHAR(10));";
-        try (Connection conn = DriverManager.getConnection(url);
-             Statement stmt = conn.createStatement()) {
-            // create a new table
-            test=stmt.execute(sql);
+            " annee_numero_de_tirage INTEGER,"+
+            " jour_de_tirage VARCHAR(10),"+
+            " date_de_tirage DATE,"+
+            " date_de_forclusion DATE,"+
+            " boule_1 TINYINT,"+
+            " boule_2 TINYINT,"+
+            " boule_3 TINYINT,"+
+            " boule_4 TINYINT,"+
+            " boule_5 TINYINT,"+
+            " numero_chance TINYINT,"+
+            " combinaison_gagnante_en_ordre_croissant varchar(20),"+
+            " nombre_de_gagnant_au_rang1 INTEGER,"+
+            " rapport_du_rang1 INTEGER,"+
+            " nombre_de_gagnant_au_rang2 INTEGER,"+
+            " rapport_du_rang2 INTEGER,"+
+            " nombre_de_gagnant_au_rang3 INTEGER,"+
+            " rapport_du_rang3 INTEGER,"+
+            " nombre_de_gagnant_au_rang4 INTEGER,"+
+            " rapport_du_rang4 INTEGER,"+
+            " nombre_de_gagnant_au_rang5 INTEGER,"+
+            " rapport_du_rang5 INTEGER,"+
+            " nombre_de_gagnant_au_rang6 INTEGER,"+
+            " rapport_du_rang6 INTEGER,"+
+            " numero_jokerplus INTEGER,"+
+            " devise VARCHAR(10));";
+            //System.out.println(sql);
+        try {
+            conn = DriverManager.getConnection(url);
+            if(conn!=null) {
+                Statement stmt = conn.createStatement();
+                System.out.println("statement cree");
+            }
         } catch (SQLException e) {
+            System.out.println("oskour");
             System.out.println(e.getMessage());
         }
         /*try(Statement mySt = conn.createStatement()){
@@ -125,8 +130,7 @@ public class DataBase {
         } catch (SQLException e) {
             e.printStackTrace();
         }*/
-    
-    //    try {
+        //    try {
     //        Class.forName("com.mysql.jdbc.Driver");
     //    }
     //    catch (ClassNotFoundException e) {
@@ -164,33 +168,16 @@ public class DataBase {
     public void updateDataBase(){
 
     }
-    public Connection getConnection() throws SQLException {
-        /*Connection conn = null;
-        Properties connectionProps = new Properties();
-        connectionProps.put("user", "w7");
-        connectionProps.put("password", "asCVhik;9$");*/
-        /*if (this.dbms.equals("mysql")) {
-            conn = DriverManager.getConnection(
-                    "jdbc:" + this.dbms + "://" + this.serverName + ":" + this.portNumber + "/", connectionProps);
-        } else if (this.dbms.equals("derby")) {
-            conn = DriverManager.getConnection("jdbc:" + this.dbms + ":"+this.dbName +";create=true", connectionProps);
-        }*/
-        //System.out.println("Connected to database");
+    public Connection getConnection() {
         conn = null;
-        //Properties connectionProps = new Properties();
-        //connectionProps.put("user", "mynynicolas");
-        //connectionProps.put("password", "Bw0po64*");
         try {
-            conn = DriverManager.getConnection("jdbc:mariadb://vachot.fr:3306?user=mynynicolas&password=Bw0po64*");
-        /*if (this.dbms.equals("mysql")) {
-            conn = DriverManager.getConnection(
-                    "jdbc:" + this.dbms + "://" + this.serverName + ":" + this.portNumber + "/", connectionProps);
-        } else if (this.dbms.equals("derby")) {
-            conn = DriverManager.getConnection("jdbc:" + this.dbms + ":"+this.dbName +";create=true", connectionProps);
-        }*/
+            conn = DriverManager.getConnection(url);
+            //conn = DriverManager.getConnection("jdbc:mariadb://vachot.fr:3306?user=mynynicolas&password=Bw0po64*");
+            //conn = DriverManager.getConnection("jdbc:mariadb://phpmyadmin.vachot.fr:3306/myny?user=mynynicolas&password=Bw0po64*");
+            //conn = DriverManager.getConnection("jdbc:mariadb:../../../../../../test.db");
             System.out.println("Connected to database");
         }catch(SQLException e) {
-            System.out.println("on a des pb:" + e);
+            System.out.println("on a des pb:" + e.getMessage());
         }
         return conn;
         //
