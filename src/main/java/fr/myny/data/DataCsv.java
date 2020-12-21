@@ -19,7 +19,7 @@ public class DataCsv {
      * La methode de recuperation dun fichier csv
      */
     public void getCsv(String fileZip) throws IOException{
-
+        //"src/main/resources/loto_201911.zip"
         File desDir = new File("src/main/resources/");
         byte[] buffer = new byte[1024];
         ZipInputStream zis = new ZipInputStream(new FileInputStream(fileZip));
