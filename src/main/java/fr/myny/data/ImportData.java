@@ -11,6 +11,7 @@ public class ImportData {
 
     /**
      * Le constructeur de ImportData
+     * Initialise l'URL par défaut ainsi que le dossier de destination de téléchargement
      */
     ImportData(){
         this.url = "https://www.fdj.fr/jeux-de-tirage/loto/statistiques";
@@ -29,6 +30,10 @@ public class ImportData {
 
     }
 
+    /**
+     * Méthode permettant de tester si l'URL est valide
+     * @return true si l'URL est valide si non false
+     */
     private boolean UrlExist() {
         try {
             URL site = new URL(url);
@@ -43,6 +48,12 @@ public class ImportData {
         }
     }
 
+    /**
+     * Méthode permettant de télécharger un fichier à partir d'un URL
+     * Séquence du code :
+     *      - récupération du lien du fichier à télécharger à partir du code source de la page
+     *      - enregistrement du fichier télécharger dans le répertoire définit dans le constructeur
+     */
     public void DownloadCsvZip() {
         if (UrlExist()) {
             BufferedReader in = null;
