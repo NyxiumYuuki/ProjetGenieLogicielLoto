@@ -2,9 +2,6 @@ package fr.myny.gui;
 
 
 public class Ihm {
-
-
-
     /**
      * Le constructeur de Ihm
      */
@@ -30,7 +27,7 @@ public class Ihm {
      * La methode de demande de telechargement de donnees
      */
     public void downloadData(){
-
+        // Envoie directement l'utilisateur vers le site de téléchargement
     }
 
     /**
