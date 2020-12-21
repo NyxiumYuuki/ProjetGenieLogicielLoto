@@ -7,12 +7,14 @@ import java.net.MalformedURLException;
 public class ImportData {
 
     protected String url;
+    protected String repDes;
 
     /**
      * Le constructeur de ImportData
      */
     ImportData(){
         this.url = "https://www.fdj.fr/jeux-de-tirage/loto/statistiques";
+        this.repDes = "src/test/resources/";
     }
 
     /**
@@ -21,6 +23,10 @@ public class ImportData {
      */
     public ImportData(String url){
         this.url=url;
+    }
+
+    public void getUrl() {
+
     }
 
     private boolean UrlExist() {
@@ -35,16 +41,6 @@ public class ImportData {
         } catch (MalformedURLException e) {
             return false;
         }
-    }
-
-    private boolean ZipNotExist(String filename) {
-        File directory = new File("src/main/java/resources/");
-        File[] files = directory.listFiles();
-        for (File f : files) {
-            if (f.getName().equals(filename))
-                return false;
-        }
-        return true;
     }
 
     public void DownloadCsvZip() {
@@ -63,19 +59,16 @@ public class ImportData {
                         if (test.equals(urlZipLink.substring(50, 55))) {
                             nameZip = urlZipLink.substring(50,65);
                             urlZipLink = urlZipLink.substring(13,65);
-                            if (ZipNotExist(nameZip)) {
-                                try (BufferedInputStream bis = new BufferedInputStream(new URL(urlZipLink).openStream());
-                                     FileOutputStream fos = new FileOutputStream("src/main/java/resources/" + nameZip)) {
-                                    byte data[] = new byte[1024];
-                                    int byteContent;
-                                    while ((byteContent = bis.read(data, 0, 1024)) != -1) {
-                                        fos.write(data, 0, byteContent);
-                                    }
-                                } catch (IOException e) {
-                                    e.printStackTrace(System.out);
+                            try (BufferedInputStream bis = new BufferedInputStream(new URL(urlZipLink).openStream());
+                                 FileOutputStream fos = new FileOutputStream(repDes + nameZip)) {
+                                byte data[] = new byte[1024];
+                                int byteContent;
+                                while ((byteContent = bis.read(data, 0, 1024)) != -1) {
+                                    fos.write(data, 0, byteContent);
                                 }
+                            } catch (IOException e) {
+                                e.printStackTrace(System.out);
                             }
-
                         }
                     }
                 }
