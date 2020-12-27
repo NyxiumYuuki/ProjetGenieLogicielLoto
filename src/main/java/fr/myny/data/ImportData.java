@@ -15,7 +15,7 @@ public class ImportData {
      */
     ImportData(){
         this.url = "https://www.fdj.fr/jeux-de-tirage/loto/statistiques";
-        this.repDes = "src/test/resources/";
+        this.repDes = "src/test/resources/Download/";
     }
 
     /**

@@ -8,19 +8,22 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class DataCsv {
+
+    protected String destination;
+
     /**
      * Le constructeur de DataCsv
      */
     public DataCsv(){
-
+        this.destination = "src/test/resources/CsvFile";
     }
 
     /**
      * La methode de recuperation dun fichier csv
+     * @param fileZip : nom suivit du chemin du fichier zip
      */
     public void getCsv(String fileZip) throws IOException{
-        //"src/main/resources/loto_201911.zip"
-        File desDir = new File("src/main/resources/");
+        File desDir = new File(destination);
         byte[] buffer = new byte[1024];
         ZipInputStream zis = new ZipInputStream(new FileInputStream(fileZip));
         ZipEntry zipEntry = zis.getNextEntry();
@@ -50,7 +53,9 @@ public class DataCsv {
     }
 
     /**
-     * Methode d'extraction de fichier zip
+     * Methode verifiant si l extraction a bien ete faite
+     * @param destinationDir : chemin de destination
+     * @param zipEntry : zip cible
      */
      public File newFile(File destinationDir, ZipEntry zipEntry) throws IOException{
          File destFile = new File(destinationDir, zipEntry.getName());
