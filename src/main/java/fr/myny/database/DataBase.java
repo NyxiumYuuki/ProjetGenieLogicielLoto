@@ -4,14 +4,13 @@ import java.sql.*;
 import java.util.*;
 import java.io.*;
 
-import com.opencsv.CSVReader;
 /**
  * La classe DataBase qui soccupera de la base de donnees
  */
 
 public class DataBase {
     //public static String url="jdbc:mariadb://vachot.fr:3306?user=mynynicolas&password=Bw0po64*";
-
+    public static final int NBCOL =25;
     public static String url="jdbc:mariadb://phpmyadmin.vachot.fr:3306?db=myny&user=mynynicolas&password=Bw0po64*";
     Connection conn;
     /**
@@ -85,13 +84,13 @@ public class DataBase {
             line="";
             String date, jour, mois, an;
             while (sc.hasNext()){
-                j=(i%25)+1;
+                j=(i% NBCOL)+1;
                 if(j==1) {
                     line=line+'(';
                     line=line+sc.next().replace(",",".");
                     line=line+';';
                 }
-                if(j<25 && j>1) {
+                if(j< NBCOL && j>1) {
                     if (j==2 ||j==11){
                         line=line+"\'"+sc.next().replace(",",".")+"\',";
                     }
@@ -107,7 +106,7 @@ public class DataBase {
                         line=line+';';
                     }
                 }
-                if(j==25) {
+                if(j== NBCOL) {
                     line=line+"\'"+sc.next().replace(",",".")+"\'";
                     line=line+')';
                     line=line.replaceAll("\\s","");
@@ -310,7 +309,7 @@ public class DataBase {
      * La methode de mise a jour de la base de donnees
      */
     public void updateDataBase() throws FileNotFoundException {
- /*       String sql="INSERT INTO myny.Test_Table" +
+       String sql="INSERT INTO myny.Test_Table" +
                 " (annee_numero_de_tirage, "+
                 " jour_de_tirage, "+
                 " date_de_tirage,"+
@@ -339,7 +338,7 @@ public class DataBase {
 
 
 
-        try {
+  /*       try {
             Scanner sc = new Scanner(new File("c:/Users/cocof/Bureau/nouveau_loto.csv"));
             sc.useDelimiter(";|\\n");   //sets the delimiter pattern
             int i=0,j;
@@ -348,13 +347,13 @@ public class DataBase {
             String date, jour, mois, an;
             String annee_numero_de_tirage=sc.next();
             while (sc.hasNext()&&annee_numero_de_tirage!=){
-                j=(i%25)+1;
+                j=(i%NBCOL)+1;
                 if(j==1) {
                     line=line+'(';
                     line=line+sc.next().replace(",",".");
                     line=line+';';
                 }
-                if(j<25 && j>1) {
+                if(j<NBCOL && j>1) {
                     if (j==2 ||j==11){
                         line=line+"\'"+sc.next().replace(",",".")+"\',";
                     }
@@ -370,7 +369,7 @@ public class DataBase {
                         line=line+';';
                     }
                 }
-                if(j==25) {
+                if(j==NBCOL) {
                     line=line+"\'"+sc.next().replace(",",".")+"\'";
                     line=line+')';
                     line=line.replaceAll("\\s","");
@@ -401,15 +400,60 @@ public class DataBase {
                 sc.useDelimiter(";|\\n");   //sets the delimiter pattern
                 String line=sc.nextLine();
                 line="";
-                long annee_numero_de_tirage=Long.parseLong(sc.next());
+                int i=0,j=0;
+                String date, jour, mois, an;
+                long anEntre=Long.parseLong(sc.next());
                 //sc.nextLine();
                 //annee_numero_de_tirage=Long.parseLong(sc.next());
-                System.out.println("numero en haut du fichier csv :"+annee_numero_de_tirage);
+                System.out.println("numero en haut du fichier csv :"+anEntre);
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT MAX(annee_numero_de_tirage) FROM myny.Test_Table;");
                 rs.next();
+                long maxvaldb=rs.getLong(1);
                 //conn.close();
                 System.out.println("numero max de la db :"+rs.getLong(1));
+                while(anEntre>maxvaldb) {
+                    for (i = 0; i < NBCOL; i++) {
+                        System.out.println("i: "+i+", j :"+j);
+                        j = (i % NBCOL) + 1;
+                        if (j == 1) {
+                            line = line + '(';
+                            line = line + anEntre;
+                            line = line + ';';
+                            //sc.next();
+                        }
+                        if (j < NBCOL && j > 1) {
+                            if (j == 2 || j == 11) {
+                                line = line + "\'" + sc.next().replace(",", ".") + "\',";
+                            } else if (j == 3 || j == 4) {
+                                date = sc.next().replace(",", ".");
+                                jour = date.substring(0, 2);
+                                mois = date.substring(3, 5);
+                                an = date.substring(6, 10);
+                                line = line + "\'" + an + "-" + mois + "-" + jour + "\',";
+                            } else {
+                                line = line + sc.next().replace(",", ".");
+                                line = line + ';';
+                            }
+                        }
+                        if (j == NBCOL) {
+                            line = line + "\'" + sc.next().replace(",", ".") + "\'";
+                            line = line + ')';
+                            line = line.replaceAll("\\s", "");
+                            line = line.replaceAll(";", ",");
+                            anEntre = Long.parseLong(sc.next());
+                            if (anEntre > maxvaldb) {
+                                line = line + ",";
+                            } else {
+                                line = line + ";";
+                            }
+                            //System.out.println(line);
+                            sql = sql + line;
+                            line = "";
+                        }
+                    }
+                }
+                System.out.println(sql);
             }
         } catch (SQLException e) {
             System.out.println("oskour update");
