@@ -43,7 +43,11 @@ class DataBaseTest {
     }
 
     @Test
-    void updateDataBase() {
+    void updateDataBase() throws FileNotFoundException {
+        DataBase maDB=new DataBase();
+        Connection maCo=maDB.getConnection();
+        maDB.updateDataBase();
+        assertNotNull(maCo);
     }
 
     @Test
