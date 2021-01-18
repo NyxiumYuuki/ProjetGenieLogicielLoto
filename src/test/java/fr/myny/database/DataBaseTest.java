@@ -18,9 +18,12 @@ class DataBaseTest {
         assertNotNull(maCo);
         //maDB.fillDataBase();
         Statement stmt= maDB.conn.createStatement();
-        ResultSet rs=stmt.executeQuery("SELECT Count(*) As total From myny.Test_Table Where 1=1");
-        System.out.println("nb lignes (changer la ligne juste en dessous si on modifie le nb de col): "+rs.getInt("total"));
-        assertEquals(1317,rs);
+        ResultSet rs=stmt.executeQuery("SELECT Count(*) From myny.Test_Table");
+        rs.next();
+        long nbcolret= rs.getLong(1);
+        //System.out.println("nb lignes (changer la ligne juste en dessous si on modifie le nb de lignes): "+rs.getInt("total"));
+        System.out.println("nb lignes (changer la ligne juste en dessous si on modifie le nb de lignes): "+rs.getLong(1));
+        assertEquals(1317,rs.getLong(1));
     }
 
     @Test
