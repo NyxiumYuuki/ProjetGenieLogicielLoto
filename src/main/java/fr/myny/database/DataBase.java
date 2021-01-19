@@ -11,7 +11,8 @@ import java.io.*;
 public class DataBase {
     //public static String url="jdbc:mariadb://vachot.fr:3306?user=mynynicolas&password=Bw0po64*";
     public static final int NBCOL =25;
-    public static String url="jdbc:mariadb://phpmyadmin.vachot.fr:3306?db=myny&user=mynynicolas&password=Bw0po64*";
+    public static final String url="jdbc:mariadb://phpmyadmin.vachot.fr:3306?db=myny&user=mynynicolas&password=Bw0po64*";
+    public static final String filePath="c:/Users/cocof/Bureau/nouveau_loto.csv";
     Connection conn;
     /**
      * Le constructeur de DataBase
@@ -77,7 +78,7 @@ public class DataBase {
                 " numero_jokerplus ,"+
                 " devise ) VALUES \n";
         try {
-            Scanner sc = new Scanner(new File("c:/Users/cocof/Bureau/nouveau_loto.csv"));
+            Scanner sc = new Scanner(new File(filePath));
             sc.useDelimiter(";|\\n");   //sets the delimiter pattern
             int i=0,j;
             String line=sc.nextLine();
@@ -128,7 +129,7 @@ public class DataBase {
 
             System.out.println(sql);
             //System.out.println(sql);
-            /*CSVReader reader = new CSVReader(new FileReader("c:/Users/cocof/Bureau/nouveau_loto.csv"));
+            /*CSVReader reader = new CSVReader(new FileReader(filePath));
             String[] nextLine=reader.readNext();
             while ((nextLine = reader.readNext()) != null) {
                 // nextLine[] is an array of values from the line
@@ -307,9 +308,20 @@ public class DataBase {
 
     /**
      * La methode de mise a jour de la base de donnees
+     * @return sql String, contenant la requete SQL
+     * @var sc Scanner, l objet qui servira a lire le fichier csv
+     * @var line String, ligne contenant l'ajout a effectuer
+     * @var i int, un compteur de valeurs lues,
+     * @var j int, qui suit i%NBCOL
+     * @var nbValAj int qui augmente si on doit ajouter des lignes
+     * @var date String, la valeur de la date lue
+     * @var jour String, le jour lu
+     * @var mois String, le mois lu
+     * @var an String, l annee lue
+     * @var anEntre long, valeur lue pour l annee et le numero de tirage. sert a definir si la valeur est a ajouter dans la table
      */
-    public void updateDataBase() throws FileNotFoundException {
-       String sql="INSERT INTO myny.Test_Table" +
+    public String updateDataBase() throws FileNotFoundException {
+       String sql="INSERT INTO myny.Test_Table" +           //le debut de la requete, specifiant laction a effectuer, la table et la db
                 " (annee_numero_de_tirage, "+
                 " jour_de_tirage, "+
                 " date_de_tirage,"+
@@ -335,130 +347,88 @@ public class DataBase {
                 " rapport_du_rang6 ,"+
                 " numero_jokerplus ,"+
                 " devise ) VALUES \n";
-
-
-
-  /*       try {
-            Scanner sc = new Scanner(new File("c:/Users/cocof/Bureau/nouveau_loto.csv"));
-            sc.useDelimiter(";|\\n");   //sets the delimiter pattern
-            int i=0,j;
-            String line=sc.nextLine();
-            line="";
-            String date, jour, mois, an;
-            String annee_numero_de_tirage=sc.next();
-            while (sc.hasNext()&&annee_numero_de_tirage!=){
-                j=(i%NBCOL)+1;
-                if(j==1) {
-                    line=line+'(';
-                    line=line+sc.next().replace(",",".");
-                    line=line+';';
-                }
-                if(j<NBCOL && j>1) {
-                    if (j==2 ||j==11){
-                        line=line+"\'"+sc.next().replace(",",".")+"\',";
-                    }
-                    else if (j==3 ||j==4){
-                        date=sc.next().replace(",",".");
-                        jour=date.substring(0,2);
-                        mois=date.substring(3,5);
-                        an=date.substring(6,10);
-                        line=line+"\'"+an+"-"+mois+"-"+jour+"\',";
-                    }
-                    else{
-                        line=line+sc.next().replace(",",".");
-                        line=line+';';
-                    }
-                }
-                if(j==NBCOL) {
-                    line=line+"\'"+sc.next().replace(",",".")+"\'";
-                    line=line+')';
-                    line=line.replaceAll("\\s","");
-                    line = line.replaceAll(";", ",");
-                    if(sc.hasNext()) {
-                        line = line+ ",";
-                    }
-                    else{
-                        line = line+ ";";
-                    }
-                    //System.out.println(line);
-                    sql=sql+line;
-                    line="";
-                }
-                i++;
-                //System.out.println(sc.nextLine());
-                //System.out.print(sc.next());  //find and returns the next complete token from this scanner
-            }
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-        */
         try {
-            conn = this.getConnection();
-            if(conn!=null) {
-                Scanner sc = new Scanner(new File("c:/Users/cocof/Bureau/nouveau_loto.csv"));
-                sc.useDelimiter(";|\\n");   //sets the delimiter pattern
-                String line=sc.nextLine();
-                line="";
-                int i=0,j=0;
+            conn = this.getConnection();    //initialisation de la connexion
+            if(conn!=null) {                //si la co est bonne
+                Scanner sc = new Scanner(new File(filePath));   //lire le fichier donne
+                sc.useDelimiter(";|\\n");                       //les delimiteurs seront ; et \n
+                sc.nextLine();                                  //on ne conserve pas la premiere ligne, contenant les metadonnees
+                int i=0,j=0, nbValAj=0;
                 String date, jour, mois, an;
-                long anEntre=Long.parseLong(sc.next());
-                //sc.nextLine();
-                //annee_numero_de_tirage=Long.parseLong(sc.next());
-                System.out.println("numero en haut du fichier csv :"+anEntre);
-                Statement stmt = conn.createStatement();
+                String line="";
+                long anEntre=Long.parseLong(sc.next());         //lecture de l id en haut du tableau(donc le plus grand, cest ce qu on a constate en lisant le csv
+                //System.out.println("numero en haut du fichier csv :"+anEntre);
+                Statement stmt = conn.createStatement();        //recuperation du nb de lignes dans la table
                 ResultSet rs = stmt.executeQuery("SELECT MAX(annee_numero_de_tirage) FROM myny.Test_Table;");
                 rs.next();
                 long maxvaldb=rs.getLong(1);
-                //conn.close();
-                System.out.println("numero max de la db :"+rs.getLong(1));
+                //System.out.println("numero max de la db :"+rs.getLong(1));
+                /*comme les nombres de la premiere col sont decroissants, le nb le plus grand est lu en premier,
+                on va donc lire les nombres jusqua arriver a la plus haute valeur entree dans la table. On ne
+                pourrait probablement pas utiliser cette methode pour remplir la table en entier*/
                 while(anEntre>maxvaldb) {
-                    for (i = 0; i < NBCOL; i++) {
-                        System.out.println("i: "+i+", j :"+j);
+                    nbValAj++;//des quon rentre dans la boucle, on sait qu'on va devoir mettre a jour la table car cette valeur est>0
+                    for (i = 0; i < NBCOL; i++) {//on remplit la ligne en effectuant une lecture par col
                         j = (i % NBCOL) + 1;
                         if (j == 1) {
-                            line = line + '(';
+                            line = line + '(';//debut de la ligne a jouter
                             line = line + anEntre;
-                            line = line + ';';
+                            line = line + ';';//on met un point virgule mais on le remplacera plus tard
                             //sc.next();
                         }
-                        if (j < NBCOL && j > 1) {
+                        if (j < NBCOL && j > 1) {//pour chaque colonne, on va faire en sorte de mettre le champ dans la onne mise en fore pour qu'il soit accepté par la db
                             if (j == 2 || j == 11) {
                                 line = line + "\'" + sc.next().replace(",", ".") + "\',";
-                            } else if (j == 3 || j == 4) {
+                            } else if (j == 3 || j == 4) {//pour les col 3 et 4, il s'agit d'une date, on va donc passer dela forme jj-mm-aaaa a la forme aaaa-mm-jj
                                 date = sc.next().replace(",", ".");
                                 jour = date.substring(0, 2);
                                 mois = date.substring(3, 5);
                                 an = date.substring(6, 10);
                                 line = line + "\'" + an + "-" + mois + "-" + jour + "\',";
-                            } else {
+                            } else {//pour les autres col, on va simplement les remplir
                                 line = line + sc.next().replace(",", ".");
                                 line = line + ';';
                             }
                         }
-                        if (j == NBCOL) {
+                        if (j == NBCOL) {//pour la derniere col
                             line = line + "\'" + sc.next().replace(",", ".") + "\'";
-                            line = line + ')';
-                            line = line.replaceAll("\\s", "");
+                            line = line + ')';//on la remplit
+                            line = line.replaceAll("\\s", "");//on remplace les caracteres qui nous derangent
                             line = line.replaceAll(";", ",");
-                            anEntre = Long.parseLong(sc.next());
-                            if (anEntre > maxvaldb) {
+                            anEntre = Long.parseLong(sc.next());//on lit le prochain id de l'entree
+                            if (anEntre > maxvaldb) {//on defini  si on doit encore ajouter des lignes a la requete
                                 line = line + ",";
-                            } else {
+                            } else {//ou si on doit cloturer la requete
                                 line = line + ";";
                             }
                             //System.out.println(line);
-                            sql = sql + line;
+                            sql = sql + line + "\n";//on ajoute la ligne a la requete
                             line = "";
                         }
                     }
                 }
                 System.out.println(sql);
+                if (nbValAj>0) {//on effectue la requete si on a des maj a faire
+                    try {
+                        conn = this.getConnection();
+                        if (conn != null) {
+                            stmt = conn.createStatement();
+                            stmt.executeQuery(sql);
+                            conn.commit();
+                            //conn.close();
+                            System.out.println("update validee");
+                        }
+                    } catch (SQLException e) {
+                        System.out.println("oskour into update");
+                        System.out.println(e.getMessage());
+                    }
+                }
             }
         } catch (SQLException e) {
             System.out.println("oskour update");
             System.out.println(e.getMessage());
         }
+        return sql;
     }
 
 
