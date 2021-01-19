@@ -10,6 +10,7 @@ import java.io.*;
 
 public class DataBase {
     //public static String url="jdbc:mariadb://vachot.fr:3306?user=mynynicolas&password=Bw0po64*";
+
     public static final int NBCOL =25;
     public static final String url="jdbc:mariadb://phpmyadmin.vachot.fr:3306?db=myny&user=mynynicolas&password=Bw0po64*";
     public static final String filePath="c:/Users/cocof/Bureau/nouveau_loto.csv";
