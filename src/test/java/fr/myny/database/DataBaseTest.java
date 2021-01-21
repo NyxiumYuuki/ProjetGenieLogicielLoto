@@ -53,6 +53,16 @@ class DataBaseTest {
     }
 
     @Test
+    void updateDataBasev2() throws FileNotFoundException {
+        DataBase maDB=new DataBase();
+        Connection maCo=maDB.getConnection();
+        String requete = maDB.updateDataBasev2();
+        System.out.println(requete);
+        assertNotNull(maCo);
+
+    }
+
+    @Test
     void getConnection() {
         DataBase maDB=new DataBase();
         Connection maCo=maDB.getConnection();

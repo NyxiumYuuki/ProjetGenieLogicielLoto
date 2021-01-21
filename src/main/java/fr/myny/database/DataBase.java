@@ -203,17 +203,17 @@ public class DataBase {
             " numero_chance TINYINT,"+                              //10
             " combinaison_gagnante_en_ordre_croissant varchar(20),"+//11 VARCHAR
             " nombre_de_gagnant_au_rang1 INTEGER,"+                 //12
-            " rapport_du_rang1 float(53),"+                           //13
+            " rapport_du_rang1 float(53),"+                         //13 flo
             " nombre_de_gagnant_au_rang2 INTEGER,"+                 //14
-            " rapport_du_rang2 float(53),"+                           //15
+            " rapport_du_rang2 float(53),"+                         //15 flo
             " nombre_de_gagnant_au_rang3 INTEGER,"+                 //16
-            " rapport_du_rang3 float(53),"+                           //17
+            " rapport_du_rang3 float(53),"+                         //17 flo
             " nombre_de_gagnant_au_rang4 INTEGER,"+                 //18
-            " rapport_du_rang4 float(53),"+                           //19
+            " rapport_du_rang4 float(53),"+                         //19 flo
             " nombre_de_gagnant_au_rang5 INTEGER,"+                 //20
-            " rapport_du_rang5 float(53),"+                           //21
+            " rapport_du_rang5 float(53),"+                         //21 flo
             " nombre_de_gagnant_au_rang6 INTEGER,"+                 //22
-            " rapport_du_rang6 float(53),"+                           //23
+            " rapport_du_rang6 float(53),"+                         //23 flo
             " numero_jokerplus INTEGER,"+                           //24
             " devise VARCHAR(10));";                                //25 VARCHAR
             //System.out.println(sql);
@@ -436,6 +436,10 @@ public class DataBase {
 
 
     public String updateDataBasev2() throws FileNotFoundException {
+        //Ligne maL=new Ligne();
+        long[][] mesL=new long[4000][NBCOL+1];
+        String[][]mesS=new String[4000][NBCOL+1];
+        Double[][]mesD=new Double[4000][NBCOL+1];
         String sql="INSERT INTO myny.Test_Table" +           //le debut de la requete, specifiant laction a effectuer, la table et la db
                 " (annee_numero_de_tirage, "+
                 " jour_de_tirage, "+
@@ -469,7 +473,7 @@ public class DataBase {
                 sc.useDelimiter(";|\\n");                       //les delimiteurs seront ; et \n
                 sc.nextLine();                                  //on ne conserve pas la premiere ligne, contenant les metadonnees
                 long cpt=0;
-                Object[] champs;
+                //Object[] champs;
                 int i=0,j=0, nbValAj=0;
                 String date, jour, mois, an;
                 String line="";
@@ -489,14 +493,47 @@ public class DataBase {
 
                         j = (i % NBCOL) + 1;
                         if (j == 1) {
-                            line = line + "(?;";//debut de la ligne a jouter
+                            line = line + "(?,";//debut de la ligne a jouter
+                            mesL[nbValAj][j]=anEntre;
                             //champs[cpt++]=anEntre;
                             //line = line + anEntre;
                             //line = line + ';';//on met un point virgule mais on le remplacera plus tard
                             //sc.next();
                         }
                         if (j < NBCOL && j > 1) {//pour chaque colonne, on va faire en sorte de mettre le champ dans la onne mise en fore pour qu'il soit accepté par la db
+                            line = line + "?,";
                             if (j == 2 || j == 11) {
+                                mesS[nbValAj][j] = sc.next().replaceAll("\\s", "");
+                            } else if (j == 3 || j == 4) {//pour les col 3 et 4, il s'agit d'une date, on va donc passer dela forme jj-mm-aaaa a la forme aaaa-mm-jj
+                                date = sc.next().replace(",", ".");
+                                jour = date.substring(0, 2);
+                                mois = date.substring(3, 5);
+                                an = date.substring(6, 10);
+                                mesS[nbValAj][j] =  an + "-" + mois + "-" + jour ;
+                            }
+                            else if (j >= 13 && j <= 23 && j % 2 == 1) {//pour les col 3 et 4, il s'agit d'une date, on va donc passer dela forme jj-mm-aaaa a la forme aaaa-mm-jj
+                                mesD[nbValAj][j] = Double.parseDouble(sc.next().replace(",", "."));
+                            }
+                            else {//pour les autres col, on va simplement les remplir
+                                mesL[nbValAj][j] = Long.parseLong(sc.next().replaceAll("\\s", ""));
+                            }
+                        }
+                        else if (j == NBCOL) {//pour la derniere col
+                            line=line+"?)";
+                            mesS[nbValAj][j] = sc.next().replaceAll("\\s", "");
+                            anEntre = Long.parseLong(sc.next());//on lit le prochain id de l'entree
+                            if (anEntre > maxvaldb) {//on defini  si on doit encore ajouter des lignes a la requete
+                                line = line + ",";
+                            } else {//ou si on doit cloturer la requete
+                                line = line + ";";
+                            }
+                            //System.out.println(line);
+                            sql = sql + line + "\n";//on ajoute la ligne a la requete
+                            line = "";
+                        }
+
+
+                            /*if (j == 2 || j == 11) {
                                 line = line + "\'" + sc.next().replace(",", ".") + "\',";
                             } else if (j == 3 || j == 4) {//pour les col 3 et 4, il s'agit d'une date, on va donc passer dela forme jj-mm-aaaa a la forme aaaa-mm-jj
                                 date = sc.next().replace(",", ".");
@@ -508,8 +545,8 @@ public class DataBase {
                                 line = line + sc.next().replace(",", ".");
                                 line = line + ';';
                             }
-                        }
-                        if (j == NBCOL) {//pour la derniere col
+                        }*/
+                        /*if (j == NBCOL) {//pour la derniere col
                             line = line + "\'" + sc.next().replace(",", ".") + "\'";
                             line = line + ')';//on la remplit
                             line = line.replaceAll("\\s", "");//on remplace les caracteres qui nous derangent
@@ -523,10 +560,44 @@ public class DataBase {
                             //System.out.println(line);
                             sql = sql + line + "\n";//on ajoute la ligne a la requete
                             line = "";
-                        }
+                        }*/
                     }
                 }
                 System.out.println(sql);
+                if (nbValAj>0) {
+                    PreparedStatement ps = null;
+                    try {
+                        conn = this.getConnection();
+                        if (conn != null) {
+                            ps=conn.prepareStatement(sql);
+                            for(int a=1;a<=nbValAj;a++){
+                                for(int b=1;b<=NBCOL;b++){
+                                    if((b>1&&b<5)||b==11||b==25){
+                                        System.out.println("a: "+a+" et b: "+b);
+                                        ps.setString((a-1)*25+b, mesS[a][b]);
+
+                                    }
+                                    else if(j > 12 && j < 24 && j % 2 == 1){
+                                        System.out.println("a: "+a+" et b: "+b);
+                                        ps.setString((a-1)*25+b, mesD[a][b]+"");
+                                    }
+                                    else{
+                                        System.out.println("a: "+a+" et b: "+b);
+                                        ps.setString((a-1)*25+b, mesL[a][b]+"");
+                                    }
+                                }
+                            }
+                            //conn.close();
+                            ps.executeQuery();
+                            System.out.println("update validee");
+                        }
+                    } catch (SQLException e) {
+                        System.out.println("oskour into update");
+                        System.out.println(e.getMessage());
+                    }
+
+                }
+                /*System.out.println(sql);
                 if (nbValAj>0) {//on effectue la requete si on a des maj a faire
                     try {
                         conn = this.getConnection();
@@ -541,7 +612,7 @@ public class DataBase {
                         System.out.println("oskour into update");
                         System.out.println(e.getMessage());
                     }
-                }
+                }*/
             }
         } catch (SQLException e) {
             System.out.println("oskour update");
