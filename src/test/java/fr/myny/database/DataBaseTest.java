@@ -58,4 +58,16 @@ class DataBaseTest {
         Connection maCo=maDB.getConnection();
         assertNotNull(maCo);
     }
+
+    @Test
+    public void removeLines() throws FileNotFoundException{
+        DataBase maDB=new DataBase();
+        maDB.removeLines();
+    }
+
+    @Test
+    public void dropTable() throws FileNotFoundException{
+        DataBase maDB=new DataBase();
+        maDB.dropTable();
+    }
 }
