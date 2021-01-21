@@ -16,14 +16,14 @@ class DataBaseTest {
         DataBase maDB=new DataBase();
         Connection maCo=maDB.getConnection();
         assertNotNull(maCo);
-        //maDB.fillDataBase();
+        maDB.fillDataBase();
         Statement stmt= maDB.conn.createStatement();
         ResultSet rs=stmt.executeQuery("SELECT Count(*) From myny.Test_Table");
         rs.next();
         long nbcolret= rs.getLong(1);
         //System.out.println("nb lignes (changer la ligne juste en dessous si on modifie le nb de lignes): "+rs.getInt("total"));
         System.out.println("nb lignes (changer la ligne juste en dessous si on modifie le nb de lignes): "+rs.getLong(1));
-        assertEquals(1317,rs.getLong(1));
+        assertEquals(1321,rs.getLong(1));
     }
 
     @Test
@@ -72,7 +72,7 @@ class DataBaseTest {
     @Test
     public void removeLines() throws FileNotFoundException{
         DataBase maDB=new DataBase();
-        maDB.removeLines();
+        maDB.removeLines(0);
     }
 
     @Test

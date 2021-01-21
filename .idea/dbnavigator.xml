@@ -23,7 +23,11 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="2cc612ec-5019-46bc-b400-7f0d1d32a97d">
+        <schema name="myny" object-types="function, procedure, view, table" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="2cc612ec-5019-46bc-b400-7f0d1d32a97d">
