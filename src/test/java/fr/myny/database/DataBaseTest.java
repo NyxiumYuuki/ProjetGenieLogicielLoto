@@ -3,20 +3,20 @@ package fr.myny.database;
 import org.junit.jupiter.api.Test;
 
 import java.sql.*;
-import java.util.*;
 import java.io.*;
 import static org.junit.jupiter.api.Assertions.*;
-import fr.myny.database.*;
 
 class DataBaseTest {
-    Connection connexion;
+    Connection maCo;
+    public static final String FILEPATH="c:/Users/cocof/Bureau/nouveau_loto.csv";
     @Test
     void fillDataBase() throws SQLException {
 
         DataBase maDB=new DataBase();
-        Connection maCo=maDB.getConnection();
+        maCo=maDB.getConnection();
         assertNotNull(maCo);
-        maDB.fillDataBase();
+        int res= maDB.fillTable(FILEPATH);
+        System.out.println(res);
         Statement stmt= maDB.conn.createStatement();
         ResultSet rs=stmt.executeQuery("SELECT Count(*) From myny.Test_Table");
         rs.next();
@@ -31,9 +31,9 @@ class DataBaseTest {
     }
 
     @Test
-    void createDataBase() throws SQLException {
+    void createTable() throws SQLException {
         DataBase maDB=new DataBase();
-        maDB.createDataBase();
+        maDB.createTable();
         Statement stmt= maDB.conn.createStatement();
         ResultSet rs=stmt.executeQuery("Select * From myny.Test_Table");
         ResultSetMetaData rsmd =rs.getMetaData();
@@ -43,21 +43,21 @@ class DataBaseTest {
     }
 
     @Test
-    void updateDataBase() throws FileNotFoundException {
+    void updateTable() throws FileNotFoundException, SQLException {
         DataBase maDB=new DataBase();
-        Connection maCo=maDB.getConnection();
-        String requete = maDB.updateDataBase();
-        System.out.println(requete);
+        maCo=maDB.getConnection();
+        int res = maDB.updateTable(FILEPATH);
+        System.out.println(res);
         assertNotNull(maCo);
 
     }
 
     @Test
-    void updateDataBasev2() throws FileNotFoundException {
+    void updateTablev2() throws FileNotFoundException, SQLException {
         DataBase maDB=new DataBase();
-        Connection maCo=maDB.getConnection();
-        String requete = maDB.updateDataBasev2();
-        System.out.println(requete);
+        maCo=maDB.getConnection();
+        int res = maDB.updateTablev2(FILEPATH);
+        System.out.println(res);
         assertNotNull(maCo);
 
     }
@@ -65,14 +65,31 @@ class DataBaseTest {
     @Test
     void getConnection() {
         DataBase maDB=new DataBase();
-        Connection maCo=maDB.getConnection();
+        maCo=maDB.getConnection();
         assertNotNull(maCo);
     }
+    @Test
+    public void showLine() throws SQLException {
+        DataBase maDB=new DataBase();
+        ResultSet rs=maDB.showLine(2017001);
+        rs.next();
+        for (int i=1;i<26;i++) {
+            System.out.print(rs.getObject(i)+", ");
+        }
+    }
+
 
     @Test
-    public void removeLines() throws FileNotFoundException{
+    public void removeMultiplesLines() throws FileNotFoundException{
         DataBase maDB=new DataBase();
-        maDB.removeLines(0);
+        int res= maDB.removeMultiplesLines(2017004);
+        System.out.print(res);
+    }
+    @Test
+    public void removeLine() throws FileNotFoundException{
+        DataBase maDB=new DataBase();
+        int res= maDB.removeLine(2017014);
+        System.out.print(res);
     }
 
     @Test
