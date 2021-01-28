@@ -13,11 +13,6 @@ public class DataBase {
     public static final int NBCOL =25;//le nombre de coldu fichier csv
     public static final String url="jdbc:mariadb://phpmyadmin.vachot.fr:3306?db=myny&user=mynynicolas&password=Bw0po64*";//l'acces à la db
     Connection conn;//la connexion a la db
-    /**
-     * Le constructeur de DataBase
-     */
-    public DataBase(){
-    }
 
     /**
      * La methode de connection
@@ -40,17 +35,9 @@ public class DataBase {
         return conn;
     }
 
-
-    /**
-     * La methode d import de donnees depuis la base de donnees
-     */
-    public void importDataBase(){
-
-    }
-
     /**
      * La methode de creation de la table
-     * stmt Statement la variable pour créer la declaration
+     * stmt Statement la variable pour creer la declaration
      * sql String la requete
      * @return res, int le resultat de la requete (nb de ligne affectees)
      */
@@ -112,9 +99,9 @@ public class DataBase {
      * jour String, le jour lu
      * mois String, le mois lu
      * an String, l annee lue
-     * mesL tableau dans lequel seront stockés tous les long
-     * mesS tableau dans lequel seront stockés tous les String
-     * mesD tableau dans lequel seront stockés tous les Double
+     * mesL tableau dans lequel seront stockes tous les long
+     * mesS tableau dans lequel seront stockes tous les String
+     * mesD tableau dans lequel seront stockes tous les Double
      * sc Scanner, l objet qui servira a lire le fichier csv
      * @param filePath String le fichier et son chemin
      * @return res int le resultat de la requete(nb de ligne affectees)
@@ -380,9 +367,9 @@ public class DataBase {
     /**
      * La methode de mise a jour de la base de donnees 2 qui evite les injections sql
      * @return rs, int, le resultat de la requete (nb de lignes affectees)
-     * mesL tableau dans lequel seront stockés tous les long
-     * mesS tableau dans lequel seront stockés tous les String
-     * mesD tableau dans lequel seront stockés tous les Double
+     * mesL tableau dans lequel seront stockes tous les long
+     * mesS tableau dans lequel seront stockes tous les String
+     * mesD tableau dans lequel seront stockes tous les Double
      * sc Scanner, l objet qui servira a lire le fichier csv
      * line String, ligne contenant l'ajout a effectuer
      * i int, un compteur de valeurs lues,
@@ -536,31 +523,6 @@ public class DataBase {
     }
 
     /**
-     * la methode de suppression des lignes strictement supérieures a la valeur i dans annee_numero_de_tirage
-     * @param i la valeur de reference
-     * @return res, int le resultat de la requete (nb de lignes affectees)
-     */
-    public int removeMultiplesLines(int i){
-        int res=-1;
-        String sql="delete from myny.Test_Table where annee_numero_de_tirage >"+i;
-        try {
-            conn = this.getConnection();
-            if(conn!=null) {
-                Statement ps = conn.createStatement();
-                res=ps.executeUpdate(sql);
-                //ps.executeQuery(sql);
-                conn.commit();
-                //conn.close();
-                System.out.println("statement cree");
-            }
-        } catch (SQLException e) {
-            System.out.println("removeLines probleme");
-            System.out.println(e.getMessage());
-        }
-        return res;
-    }
-
-    /**
      * la methode de selection de la ligne ayant la valeur i dans annee_numero_de_tirage
      * @param i la valeur de reference
      * @return rs, ResultSet le resultat de la requete
@@ -610,6 +572,31 @@ public class DataBase {
     }
 
     /**
+     * la methode de suppression des lignes strictement supérieures a la valeur i dans annee_numero_de_tirage
+     * @param i la valeur de reference
+     * @return res, int le resultat de la requete (nb de lignes affectees)
+     */
+    public int removeMultiplesLines(int i){
+        int res=-1;
+        String sql="delete from myny.Test_Table where annee_numero_de_tirage >"+i;
+        try {
+            conn = this.getConnection();
+            if(conn!=null) {
+                Statement ps = conn.createStatement();
+                res=ps.executeUpdate(sql);
+                //ps.executeQuery(sql);
+                conn.commit();
+                //conn.close();
+                System.out.println("statement cree");
+            }
+        } catch (SQLException e) {
+            System.out.println("removeLines probleme");
+            System.out.println(e.getMessage());
+        }
+        return res;
+    }
+
+    /**
      * La methode pour supprimer la table entiere
      * @return res int le resultat de la requete(nb de lignes affectees)
      */
@@ -632,5 +619,4 @@ public class DataBase {
         }
         return res;
     }
-
 }
