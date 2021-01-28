@@ -37,8 +37,8 @@ public class DataBase {
 
     /**
      * La methode de creation de la table
-     * stmt Statement la variable pour creer la declaration
-     * sql String la requete
+     * <p>stmt Statement la variable pour creer la declaration</p>
+     * <p>sql String la requete</p>
      * @return res, int le resultat de la requete (nb de ligne affectees)
      */
     public int createTable() {
@@ -91,18 +91,18 @@ public class DataBase {
 
     /**
      * La methode de remplissage de la base de donnees
-     * line String la ligne a ajouter
-     * i int, un compteur de valeurs lues,
-     * j int, qui suit i%NBCOL
-     * nbValAj int qui augmente si on doit ajouter des lignes
-     * date String, la valeur de la date lue
-     * jour String, le jour lu
-     * mois String, le mois lu
-     * an String, l annee lue
-     * mesL tableau dans lequel seront stockes tous les long
-     * mesS tableau dans lequel seront stockes tous les String
-     * mesD tableau dans lequel seront stockes tous les Double
-     * sc Scanner, l objet qui servira a lire le fichier csv
+     * <p>line String la ligne a ajouter</p>
+     * <p>i int, un compteur de valeurs lues,</p>
+     * <p>j int, qui suit i%NBCOL</p>
+     * <p>nbValAj int qui augmente si on doit ajouter des lignes</p>
+     * <p>date String, la valeur de la date lue</p>
+     * <p>jour String, le jour lu</p>
+     * <p>mois String, le mois lu</p>
+     * <p>an String, l annee lue</p>
+     * <p>mesL tableau dans lequel seront stockes tous les long</p>
+     * <p>mesS tableau dans lequel seront stockes tous les String</p>
+     * <p>mesD tableau dans lequel seront stockes tous les Double</p>
+     * <p>sc Scanner, l objet qui servira a lire le fichier csv</p>
      * @param filePath String le fichier et son chemin
      * @return res int le resultat de la requete(nb de ligne affectees)
      */
@@ -234,16 +234,16 @@ public class DataBase {
     /**
      * La methode de mise a jour de la base de donnees
      * @return res int, le resultat de la requete(nb de ligne affectees)
-     * sc Scanner, l objet qui servira a lire le fichier csv
-     * line String, ligne contenant l'ajout a effectuer
-     * i int, un compteur de valeurs lues,
-     * j int, qui suit i%NBCOL
-     * nbValAj int qui augmente si on doit ajouter des lignes
-     * date String, la valeur de la date lue
-     * jour String, le jour lu
-     * mois String, le mois lu
-     * an String, l annee lue
-     * anEntre long, valeur lue pour l annee et le numero de tirage. sert a definir si la valeur est a ajouter dans la tabl
+     * <p>sc Scanner, l objet qui servira a lire le fichier csv</p>
+     * <p>line String, ligne contenant l'ajout a effectuer</p>
+     * <p>i int, un compteur de valeurs lues,</p>
+     * <p>j int, qui suit i%NBCOL</p>
+     * <p>nbValAj int qui augmente si on doit ajouter des lignes</p>
+     * <p>date String, la valeur de la date lue</p>
+     * <p>jour String, le jour lu</p>
+     * <p>mois String, le mois lu</p>
+     * <p>an String, l annee lue</p>
+     * <p>anEntre long, valeur lue pour l annee et le numero de tirage. sert a definir si la valeur est a ajouter dans la table</p>
      * @deprecated
      */
     public int updateTable(String filePath) throws FileNotFoundException {
@@ -367,23 +367,23 @@ public class DataBase {
     /**
      * La methode de mise a jour de la base de donnees 2 qui evite les injections sql
      * @return rs, int, le resultat de la requete (nb de lignes affectees)
-     * mesL tableau dans lequel seront stockes tous les long
-     * mesS tableau dans lequel seront stockes tous les String
-     * mesD tableau dans lequel seront stockes tous les Double
-     * sc Scanner, l objet qui servira a lire le fichier csv
-     * line String, ligne contenant l'ajout a effectuer
-     * i int, un compteur de valeurs lues,
-     * j int, qui suit i%NBCOL
-     * a int, un compteur de lignes modifiees
-     * b int, un compteur de champs modifiees
-     * nbValAj int qui augmente si on doit ajouter des lignes
-     * date String, la valeur de la date lue
-     * jour String, le jour lu
-     * mois String, le mois lu
-     * an String, l annee lue
-     * anEntre long, valeur lue pour l annee et le numero de tirage. sert a definir si la valeur est a ajouter dans la table
-     * ps PreparedStatement pour executer la requete sans injection sql
-     * stmt Statement pour executer la requete de depart
+     * <p>mesL tableau dans lequel seront stockes tous les long</p>
+     * <p>mesS tableau dans lequel seront stockes tous les String</p>
+     * <p>mesD tableau dans lequel seront stockes tous les Double</p>
+     * <p>sc Scanner, l objet qui servira a lire le fichier csv</p>
+     * <p>line String, ligne contenant l'ajout a effectuer</p>
+     * <p>i int, un compteur de valeurs lues,</p>
+     * <p>j int, qui suit i%NBCOL</p>
+     * <p>a int, un compteur de lignes modifiees</p>
+     * <p>b int, un compteur de champs modifiees</p>
+     * <p>nbValAj int qui augmente si on doit ajouter des lignes</p>
+     * <p>date String, la valeur de la date lue</p>
+     * <p>jour String, le jour lu</p>
+     * <p>mois String, le mois lu</p>
+     * <p>an String, l annee lue</p>
+     * <p>anEntre long, valeur lue pour l annee et le numero de tirage. sert a definir si la valeur est a ajouter dans la table</p>
+     * <p>ps PreparedStatement pour executer la requete sans injection sql</p>
+     * <p>stmt Statement pour executer la requete de depart</p>
      */
     public int updateTablev2(String filePath) throws FileNotFoundException {
         //Ligne maL=new Ligne();
@@ -572,7 +572,7 @@ public class DataBase {
     }
 
     /**
-     * la methode de suppression des lignes strictement supérieures a la valeur i dans annee_numero_de_tirage
+     * la methode de supression des lignes strictement superieures a la valeur i dans annee_numero_de_tirage
      * @param i la valeur de reference
      * @return res, int le resultat de la requete (nb de lignes affectees)
      */
