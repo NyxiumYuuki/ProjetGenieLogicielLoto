@@ -231,8 +231,11 @@ public class DataBase {
         return res;
     }
 
+
     /**
+     *
      * La methode de mise a jour de la base de donnees
+     * @param filePath String, le chemin+nom du fichier+extension
      * @return res int, le resultat de la requete(nb de ligne affectees)
      * <p>sc Scanner, l objet qui servira a lire le fichier csv</p>
      * <p>line String, ligne contenant l'ajout a effectuer</p>
@@ -245,6 +248,7 @@ public class DataBase {
      * <p>an String, l annee lue</p>
      * <p>anEntre long, valeur lue pour l annee et le numero de tirage. sert a definir si la valeur est a ajouter dans la table</p>
      * @deprecated
+     * @throws FileNotFoundException si le fichier nest pas trouve
      */
     public int updateTable(String filePath) throws FileNotFoundException {
         ResultSet rs=null;
@@ -366,7 +370,9 @@ public class DataBase {
 
     /**
      * La methode de mise a jour de la base de donnees 2 qui evite les injections sql
+     * @param filePath String, le chemin+nom du fichier+extension
      * @return rs, int, le resultat de la requete (nb de lignes affectees)
+     * @throws FileNotFoundException si le fichier nest pas trouve
      * <p>mesL tableau dans lequel seront stockes tous les long</p>
      * <p>mesS tableau dans lequel seront stockes tous les String</p>
      * <p>mesD tableau dans lequel seront stockes tous les Double</p>
