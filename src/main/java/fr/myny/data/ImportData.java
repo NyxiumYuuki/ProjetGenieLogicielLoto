@@ -12,8 +12,7 @@ public class ImportData {
     public ArrayList<String> tabNameZip;
 
     /**
-     * Le constructeur de ImportData
-     * Initialise l'URL par défaut ainsi que le dossier de destination de téléchargement
+     * Constructeur par defaut
      */
     ImportData(){
         this.url = "https://www.fdj.fr/jeux-de-tirage/loto/statistiques";
@@ -23,8 +22,9 @@ public class ImportData {
     }
 
     /**
-     * Le constructeur de ImportData
-     * @param url string contenant l URL dou recuperer les fichiers csv
+     * Constructeur avec parametres
+     * @param url contient l'URL dou recuperer les fichiers csv
+     * @param des respertoire de destination
      */
     public ImportData(String url, String des){
         this.url=url;
