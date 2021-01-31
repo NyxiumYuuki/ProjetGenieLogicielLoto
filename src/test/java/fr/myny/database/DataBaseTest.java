@@ -43,7 +43,7 @@ class DataBaseTest {
     }
 
     @Test
-    void updateTable() throws FileNotFoundException, SQLException {
+    void updateTable() {
         DataBase maDB=new DataBase();
         maCo=maDB.getConnection();
         int res = maDB.updateTable(FILEPATH);
@@ -53,7 +53,7 @@ class DataBaseTest {
     }
 
     @Test
-    void updateTablev2() throws FileNotFoundException, SQLException {
+    void updateTablev2() {
         DataBase maDB=new DataBase();
         maCo=maDB.getConnection();
         int res = maDB.updateTablev2(FILEPATH);
@@ -80,20 +80,20 @@ class DataBaseTest {
 
 
     @Test
-    public void removeMultiplesLines() throws FileNotFoundException{
+    public void removeMultiplesLines(){
         DataBase maDB=new DataBase();
         int res= maDB.removeMultiplesLines(2017004);
         System.out.print(res);
     }
     @Test
-    public void removeLine() throws FileNotFoundException{
+    public void removeLine(){
         DataBase maDB=new DataBase();
         int res= maDB.removeLine(2017014);
         System.out.print(res);
     }
 
     @Test
-    public void dropTable() throws FileNotFoundException{
+    public void dropTable(){
         DataBase maDB=new DataBase();
         maDB.dropTable();
     }

@@ -12,7 +12,7 @@ public class DataBase {
     //public static String url="jdbc:mariadb://vachot.fr:3306?user=mynynicolas&password=Bw0po64*";
     public static final int NBCOL =25;//le nombre de coldu fichier csv
     public static final String url="jdbc:mariadb://phpmyadmin.vachot.fr:3306?db=myny&user=mynynicolas&password=Bw0po64*";//l'acces à la db
-    Connection conn;//la connexion a la db
+    public Connection conn;//la connexion a la db
 
     /**
      * La methode de connection
@@ -233,7 +233,6 @@ public class DataBase {
 
 
     /**
-     *
      * La methode de mise a jour de la base de donnees
      * @param filePath String, le chemin+nom du fichier+extension
      * @return res int, le resultat de la requete(nb de ligne affectees)
@@ -248,9 +247,8 @@ public class DataBase {
      * <p>an String, l annee lue</p>
      * <p>anEntre long, valeur lue pour l annee et le numero de tirage. sert a definir si la valeur est a ajouter dans la table</p>
      * @deprecated
-     * @throws FileNotFoundException si le fichier nest pas trouve
      */
-    public int updateTable(String filePath) throws FileNotFoundException {
+    public int updateTable(String filePath) {
         ResultSet rs=null;
         Scanner sc;
         int res=-1;
@@ -355,13 +353,13 @@ public class DataBase {
                             //conn.close();
                             System.out.println("update validee");
                         }
-                    } catch (SQLException e) {
+                    } catch (Exception e) {
                         System.out.println("updateDataBase probleme");
                         System.out.println(e.getMessage());
                     }
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("updateDataBase probleme");
             System.out.println(e.getMessage());
         }
@@ -372,7 +370,6 @@ public class DataBase {
      * La methode de mise a jour de la base de donnees 2 qui evite les injections sql
      * @param filePath String, le chemin+nom du fichier+extension
      * @return rs, int, le resultat de la requete (nb de lignes affectees)
-     * @throws FileNotFoundException si le fichier nest pas trouve
      * <p>mesL tableau dans lequel seront stockes tous les long</p>
      * <p>mesS tableau dans lequel seront stockes tous les String</p>
      * <p>mesD tableau dans lequel seront stockes tous les Double</p>
@@ -391,7 +388,7 @@ public class DataBase {
      * <p>ps PreparedStatement pour executer la requete sans injection sql</p>
      * <p>stmt Statement pour executer la requete de depart</p>
      */
-    public int updateTablev2(String filePath) throws FileNotFoundException {
+    public int updateTablev2(String filePath) {
         //Ligne maL=new Ligne();
         ResultSet rs=null;
         int res=-1;
@@ -515,13 +512,13 @@ public class DataBase {
                             //res=ps.executeQuery();//puis on execute la requete
                             System.out.println("update validee");
                         }
-                    } catch (SQLException e) {
+                    } catch (Exception e) {
                         System.out.println("updateDataBasev2 probleme");
                         System.out.println(e.getMessage());
                     }
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("updateDataBasev2 probleme, verifier si le pb ne vient pas de executeupdate au lie de executequery");
             System.out.println(e.getMessage());
         }
