@@ -10,25 +10,38 @@ import java.util.zip.ZipInputStream;
 public class DataCsv {
 
     protected String destination;
+    private ImportData imp;
 
     /**
-     * Le constructeur de DataCsv
+     * Constructeur par defaut
+     * @throws IOException
      */
-    public DataCsv(){
-        this.destination = "src/test/resources/CsvFile";
-        ImportData imp = new ImportData("https://www.fdj.fr/jeux-de-tirage/loto/statistiques");
+    public DataCsv() throws IOException {
+        this.destination = "src/main/resources/Download";
+        ImportData imp = new ImportData("https://www.fdj.fr/jeux-de-tirage/loto/statistiques", this.destination);
+
     }
 
-    public DataCsv(String s){
+    /**
+     * Constructeur avec deux parametres
+     * @param s repertoire de destination
+     * @throws IOException
+     */
+    public DataCsv(String s) throws IOException {
         this.destination = s;
-        ImportData imp = new ImportData("https://www.fdj.fr/jeux-de-tirage/loto/statistiques");
+        imp = new ImportData("https://www.fdj.fr/jeux-de-tirage/loto/statistiques", this.destination);
+
+        for (String name : imp.tabNameZip) {
+            name = this.destination.concat(name);
+            getCsv(name);
+        }
     }
 
     /**
      * La methode de recuperation dun fichier csv
      * @param fileZip : nom suivit du chemin du fichier zip
      */
-    public void getCsv(String fileZip) throws IOException{
+    private void getCsv(String fileZip) throws IOException{
         File desDir = new File(destination);
         byte[] buffer = new byte[1024];
         ZipInputStream zis = new ZipInputStream(new FileInputStream(fileZip));
@@ -75,5 +88,4 @@ public class DataCsv {
 
          return destFile;
      }
-
 }
