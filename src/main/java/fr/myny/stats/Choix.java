@@ -107,14 +107,15 @@ public class Choix {
     }
 
     public void afficherCombinaisons2(int chiffre1){
-        int j=0, k=0, l=0;
+        int j=0, k=0, l=0, cpt=0;
         for(int i=1;i<50;i++) {
             if (i != chiffre1) {
                 while (numId[chiffre1][j] != 0) {
                     while (numId[i][k] != 0) {
+                        System.out.println(numId[i][k] +"=="+ numId[chiffre1][j]);
                         if (numId[i][k] == numId[chiffre1][j]) {
                             combi1Cpt[i]++;
-                            combi1Id[i][0]=numId[i][k];
+                            combi1Id[i][cpt++]=numId[i][k];
                         }
                         k++;
                     }
@@ -123,9 +124,13 @@ public class Choix {
                 }
                 j = 0;
             }
+            cpt=0;
         }
         for (int i=1; i<50;i++) {
-            System.out.println(i+":"+combi1Cpt[i]);
+            /*for (int p=1; p<50;p++) {
+                System.out.print(combi1Id[i][p]+", ");
+            }*/
+            System.out.println(i+": "+combi1Cpt[i]);
             while(combi1Id[i][l]!=0){
                 System.out.print(combi1Id[i][l]+", ");
                 l++;

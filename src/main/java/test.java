@@ -20,5 +20,6 @@ public class test{
         Choix c=new Choix();
         c.afficherChiffre1();
         //c.afficherNumBonus();
+        c.afficherCombinaisons2(4);
     }
 }
