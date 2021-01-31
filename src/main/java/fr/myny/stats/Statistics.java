@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Classe permettant de renvoyer les statistiques
+ */
 public class Statistics {
     public DataBase maDB;
     public Connection conn;
@@ -53,11 +56,11 @@ public class Statistics {
     }
 
     /**
-     * Methode affichant les numeros avec leur frequence d'apparition
+     * Methode renvoyant les numeros avec leur frequence d'apparition
      * @throws SQLException
      */
-    public void afficherChiffre1() throws SQLException {
-        System.out.println("debut afficherChiffre1");
+    public int[][] numero1() throws SQLException {
+        System.out.println("debut numero1");
         int k=0, numprec=0, l=0;
         ResultSet rs=null;
         String sql;
@@ -130,16 +133,17 @@ public class Statistics {
             System.out.println();
             l=0;
         }
+        return (int)numId[0][0];
     }
 
     /**
-     * Methode affichant les combinaisons a deux numeros en fonction du premier numero choisi
+     * Methode renvoyant les combinaisons a deux numeros en fonction du premier numero choisi
      * @param chiffre1 premiere combinaison
      * @throws SQLException
      */
-    public void afficherCombinaisons2(int chiffre1) throws SQLException {
-        afficherChiffre1();
-        System.out.println("debut afficherCombinaisons2");
+    public void combinaison2(int chiffre1) throws SQLException {
+        numero1();
+        System.out.println("debut combinaison2");
         numSelect[1]=chiffre1;
         int j=0, k=0, l=0, cpt=0;
         for(int i=1;i<50;i++) {
@@ -176,15 +180,15 @@ public class Statistics {
     }
 
     /**
-     * Methode affichant les combinaisons a trois numeros en fonction des deux numeros choisi
+     * Methode renvoyant les combinaisons a trois numeros en fonction des deux numeros choisi
      * @param chiffre1
      * @param chiffre2
      * @throws SQLException
      */
-    public void afficherCombinaisons3(int chiffre1, int chiffre2) throws SQLException {
-        afficherChiffre1();
-        afficherCombinaisons2(chiffre1);
-        System.out.println("debut afficherCombinaisons3");
+    public void combinaison3(int chiffre1, int chiffre2) throws SQLException {
+        numero1();
+        combinaison2(chiffre1);
+        System.out.println("debut combinaison3");
         numSelect[2]=chiffre2;
         int j=0, k=0, m=0, cpt=0;
         for(int i=1;i<50;i++) {
@@ -221,10 +225,11 @@ public class Statistics {
     }
 
     /**
+     * Methode renvoyant les numeros bonus avec leur frequence d'apparition
      * @throws SQLException
      */
-    public void afficherBonus() throws SQLException {
-        System.out.println("debut afficherBonus");
+    public void bonus() throws SQLException {
+        System.out.println("debut bonus");
         int k=0, numprec=0, l=0;
         ResultSet rs=null;
         String sql;
@@ -290,14 +295,14 @@ public class Statistics {
     }
 
     /**
-     * Methode affichant les numeros bonus avec leur frequence d'apparition
+     * Methode renvoyant les numeros bonus en fonction des combinaisons à un numeros
      * @param chiffre1
      * @throws SQLException
      */
-    public void afficherNumBonus(int chiffre1) throws SQLException {
-        afficherChiffre1();
-        this.afficherBonus();
-        System.out.println("debut afficherNumBonus");
+    public void bonusCombi1(int chiffre1) throws SQLException {
+        numero1();
+        this.bonus();
+        System.out.println("debut bonus");
         numSelect[1]=chiffre1;
         int j=0, k=0, l=0, cpt=0;
         for(int i=1;i<11;i++) {
@@ -333,15 +338,15 @@ public class Statistics {
     }
 
     /**
-     * Methode affichant les numeros bonus en fonction des combinaisons à deux numeros
+     * Methode renvoyant les numeros bonus en fonction des combinaisons à deux numeros
      * @param chiffre1
      * @param chiffre2
      * @throws SQLException
      */
-    public void afficherNumBonusCombi2(int chiffre1, int chiffre2) throws SQLException {
-        afficherCombinaisons2(chiffre1);
-        afficherBonus();
-        System.out.println("debut afficherNumBonusCombi2");
+    public void bonusCombi2(int chiffre1, int chiffre2) throws SQLException {
+        combinaison2(chiffre1);
+        bonus();
+        System.out.println("debut bonusCombi2");
         numSelect[1]=chiffre1;
         numSelect[2]=chiffre2;
         int j=0, k=0, l=0, cpt=0;
@@ -378,16 +383,16 @@ public class Statistics {
     }
 
     /**
-     * Methode affichant les numeros bonus en fonction des combinaisons à trois numeros
+     * Methode renvoyant les numeros bonus en fonction des combinaisons à trois numeros
      * @param chiffre1
      * @param chiffre2
      * @param chiffre3
      * @throws SQLException
      */
-    public void afficherNumBonusCombi3(int chiffre1, int chiffre2, int chiffre3) throws SQLException {
-        afficherCombinaisons3(chiffre1, chiffre2);
-        afficherBonus();
-        System.out.println("debut afficherNumBonusCombi3");
+    public void bonusCombi3(int chiffre1, int chiffre2, int chiffre3) throws SQLException {
+        combinaison3(chiffre1, chiffre2);
+        bonus();
+        System.out.println("debut bonusCombi3");
         numSelect[1]=chiffre1;
         numSelect[2]=chiffre2;
         numSelect[3]=chiffre3;
