@@ -1,5 +1,7 @@
 package fr.myny.database;
 
+import java.sql.Connection;
+
 /**
  * La classe DataBase qui soccupera de la base de donnees
  */
@@ -42,5 +44,9 @@ public class DataBase {
      */
     public void updateDataBase(){
 
+    }
+
+    public Connection getConnection() {
+        return null;
     }
 }
