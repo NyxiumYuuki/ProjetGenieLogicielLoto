@@ -16,6 +16,12 @@ public class DataCsv {
      */
     public DataCsv(){
         this.destination = "src/test/resources/CsvFile";
+        ImportData imp = new ImportData("https://www.fdj.fr/jeux-de-tirage/loto/statistiques");
+    }
+
+    public DataCsv(String s){
+        this.destination = s;
+        ImportData imp = new ImportData("https://www.fdj.fr/jeux-de-tirage/loto/statistiques");
     }
 
     /**

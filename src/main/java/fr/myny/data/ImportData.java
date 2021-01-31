@@ -50,9 +50,6 @@ public class ImportData {
 
     /**
      * Méthode permettant de télécharger un fichier à partir d'un URL
-     * Séquence du code :
-     *      - récupération du lien du fichier à télécharger à partir du code source de la page
-     *      - enregistrement du fichier télécharger dans le répertoire définit dans le constructeur
      */
     public void DownloadCsvZip() {
         if (UrlExist()) {
