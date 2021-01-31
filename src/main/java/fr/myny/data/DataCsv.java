@@ -10,7 +10,6 @@ import java.util.zip.ZipInputStream;
 public class DataCsv {
 
     protected String destination;
-    private ImportData imp;
 
     /**
      * Constructeur par defaut
@@ -23,13 +22,13 @@ public class DataCsv {
     }
 
     /**
-     * Constructeur avec deux parametres
+     * Constructeur avec parametre
      * @param s repertoire de destination
      * @throws IOException
      */
     public DataCsv(String s) throws IOException {
         this.destination = s;
-        imp = new ImportData("https://www.fdj.fr/jeux-de-tirage/loto/statistiques", this.destination);
+        ImportData imp = new ImportData("https://www.fdj.fr/jeux-de-tirage/loto/statistiques", this.destination);
 
         for (String name : imp.tabNameZip) {
             name = this.destination.concat(name);
