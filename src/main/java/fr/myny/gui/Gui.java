@@ -13,7 +13,7 @@ public class Gui extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"));
+        scene = new Scene(loadFXML("scene1"));
         stage.setScene(scene);
         stage.show();
     }
