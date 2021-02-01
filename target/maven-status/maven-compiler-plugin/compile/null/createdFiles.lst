@@ -1,0 +1,10 @@
+fr\myny\stats\Statistics.class
+fr\myny\gui\Gui.class
+fr\myny\gui\Ihm.class
+fr\myny\grid\BuildGrid.class
+fr\myny\gui\SecondaryController.class
+fr\myny\gui\PrimaryController.class
+module-info.class
+fr\myny\data\DataCsv.class
+fr\myny\data\ImportData.class
+fr\myny\database\DataBase.class

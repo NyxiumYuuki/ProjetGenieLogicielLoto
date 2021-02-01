@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.5" prefWidth="1000.0" style="-fx-background-color: #1C2329;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.myny.gui.SceneController">
+   <children>
+      <Label layoutX="59.0" layoutY="207.0" prefHeight="44.0" prefWidth="419.0" text="Projet Genie Logiciel Loto" textAlignment="CENTER" textFill="#e8e8e8">
+         <font>
+            <Font name="System Bold" size="34.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="563.0" fitWidth="568.0" layoutX="-13.0" opacity="0.3" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/home.jpg" />
+         </image>
+      </ImageView>
+      <JFXButton layoutX="717.0" layoutY="391.0" onAction="#switchToSecondary" prefHeight="25.0" prefWidth="129.0" style="-fx-background-color: #E8E8E8;" text="Continuer" textAlignment="CENTER" textFill="#0069bf">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </JFXButton>
+      <AnchorPane layoutX="562.0" layoutY="485.0" prefHeight="77.0" prefWidth="438.0">
+         <children>
+            <ImageView fitHeight="105.0" fitWidth="235.0" layoutX="-2.0" layoutY="-33.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/Polytech.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+      <Label alignment="TOP_LEFT" layoutX="574.0" layoutY="102.0" prefHeight="105.0" prefWidth="419.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. &#10;Etiam vitae efficitur urna. Morbi auctor quis eros in facilisis. &#10;Nulla pharetra hendrerit nibh nec tincidunt. Donec eu &#10;maximus arcu. Curabitur porta ultrices enim, non scelerisque &#10;eros interdum at. Cras pellentesque imperdiet eleifend. &#10;Suspendisse eros arcu, rutrum sit amet felis vel, aliquet cursus nunc." textFill="#e8e8e8">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
