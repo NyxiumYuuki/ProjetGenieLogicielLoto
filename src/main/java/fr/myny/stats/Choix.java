@@ -28,6 +28,27 @@ public class Choix {
     public long num3_bonusCpt[];
     public long taille;
 
+    public Choix(){
+        maDB=new DataBase();
+        conn= maDB.getConnection();
+        //maDB.getConnection();
+        numSelect =new long[5];
+        numId =new long[50][4000];
+        numCpt = new long[50][2];
+        combi1Id =new long[50][4000];
+        combi1Cpt = new long[50];
+        num1_bonusId =new long[11][4000];
+        num1_bonusCpt = new long[11];
+        num2_bonusId =new long[11][4000];
+        num2_bonusCpt = new long[11];
+        num3_bonusId =new long[11][4000];
+        num3_bonusCpt = new long[11];
+        combi2Id=new long[50][4000];
+        combi2Cpt=new long[50];
+        bonusId =new long[11][4000];
+        bonusCpt=new long[11][2];
+    }
+
     public void setTaille(){
         try {
             conn = maDB.getConnection();
@@ -47,26 +68,7 @@ public class Choix {
         }
 
     }
-    public Choix(){
-        maDB=new DataBase();
-        maDB.getConnection();
-        numSelect =new long[5];
-        numId =new long[50][4000];
-        numCpt = new long[50][2];
-        combi1Id =new long[50][4000];
-        combi1Cpt = new long[50];
-        num1_bonusId =new long[11][4000];
-        num1_bonusCpt = new long[11];
-        num2_bonusId =new long[11][4000];
-        num2_bonusCpt = new long[11];
-        num3_bonusId =new long[11][4000];
-        num3_bonusCpt = new long[11];
-        combi2Id=new long[50][4000];
-        combi2Cpt=new long[50];
-        bonusId =new long[11][4000];
-        bonusCpt=new long[11][2];
-        conn= maDB.getConnection();
-    }
+
     public void afficherChiffre1() throws SQLException {
         System.out.println("debut afficherChiffre1");
         int k=0, numprec=0, l=0;
@@ -76,7 +78,9 @@ public class Choix {
         for (int i=1; i<6;i++) {
             sql = "SELECT  Test_Table.boule_" + i + ",Count(*) as 'cnt' FROM myny.Test_Table GROUP BY Test_Table.boule_" + i + "; ";
             try {
+                if(conn==null) {
                     conn = maDB.getConnection();
+                }
                 if (conn != null) {
                     Statement ps = conn.createStatement();
                     rs = ps.executeQuery(sql);
@@ -105,7 +109,9 @@ public class Choix {
         for (int i=1; i<=5;i++) {
             sql = "SELECT Test_Table.annee_numero_de_tirage, Test_Table.boule_" + i + " FROM myny.Test_Table ORDER BY Test_Table.boule_" + i + "; ";
             try {
-                conn = maDB.getConnection();
+                if(conn==null) {
+                    conn = maDB.getConnection();
+                }
                 if (conn != null) {
                     Statement ps = conn.createStatement();
                     rs = ps.executeQuery(sql);
@@ -148,26 +154,27 @@ public class Choix {
         System.out.println("debut afficherCombinaisons2");
         numSelect[1]=chiffre1;
         int j=0, k=0, l=0, cpt=0;
-        for(int i=1;i<50;i++) {
-            if (i != chiffre1) {
-                while (numId[chiffre1][j] != 0) {
+        while (numId[chiffre1][j] != 0) {
+            for(int i=1;i<50;i++) {
+                if (i != chiffre1) {
                     while (numId[i][k] != 0) {
-                        //System.out.println(numId[i][k] +"=="+ numId[chiffre1][j]);
                         if (numId[i][k] == numId[chiffre1][j]) {
-                            combi1Cpt[i]++;
-                            combi1Id[i][cpt++]=numId[i][k];
+                            //System.out.println("[i:"+i+"][k:"+k+"][j:"+j+"]");
+                            //System.out.println(numId[i][k] +"=="+ numId[chiffre1][j]);
+                            //combi1Cpt[i]++;
+                            combi1Id[i][(int)combi1Cpt[i]++]=numId[i][k];
+                            //System.out.println("[cpt:"+cpt+"]");
                         }
                         k++;
                     }
                     k = 0;
-                    j++;
                 }
-                j = 0;
             }
+            j++;
             cpt=0;
         }
         for (int i=1; i<50;i++) {
-            /*for (int p=1; p<50;p++) {
+            /*for (int p=0; p<50;p++) {
                 System.out.print(combi1Id[i][p]+", ");
             }*/
             System.out.println(i+": "+combi1Cpt[i]);
@@ -182,31 +189,33 @@ public class Choix {
     }
 
     public void afficherCombinaisons3(int chiffre1, int chiffre2) throws SQLException {
-        afficherChiffre1();
+        //afficherChiffre1();
         afficherCombinaisons2(chiffre1);
         System.out.println("debut afficherCombinaisons3");
         numSelect[2]=chiffre2;
         int j=0, k=0, m=0, cpt=0;
-        for(int i=1;i<50;i++) {
-            if (i != chiffre1 && i!=chiffre2) {
-                while (combi1Id[chiffre2][j] != 0){
+        while (combi1Id[chiffre2][j] != 0){
+            for(int i=1;i<50;i++) {
+                if (i != chiffre1 && i!=chiffre2) {
                     while (numId[i][k] != 0) {
                         //System.out.println(numId[i][k] +"=="+ combi1Id[chiffre2][j]);
                         if (numId[i][k] == combi1Id[chiffre2][j]) {
-                            combi2Cpt[i]++;
-                            combi2Id[i][cpt++]=numId[i][k];
+                            //combi2Cpt[i]++;
+                            combi2Id[i][(int)combi2Cpt[i]++]=numId[i][k];
+                            //j++;
+                            //k=0;
                         }
                         k++;
                     }
                     k = 0;
-                    j++;
                 }
-                j = 0;
             }
+            j++;
             cpt=0;
         }
+        k = 0;
         for (int i=1; i<50;i++) {
-            /*for (int p=1; p<50;p++) {
+            /*for (int p=0; p<50;p++) {
                 System.out.print(combi1Id[i][p]+", ");
             }*/
             System.out.println(i+": "+combi2Cpt[i]);
@@ -243,10 +252,11 @@ public class Choix {
         while (rs.next()) {
             bonusCpt[rs.getInt(1)][0] = rs.getInt(1);
             bonusCpt[rs.getInt(1)][1] = rs.getLong(2);
+
         }
-        for (int i=0; i<11;i++) {
+        /*for (int i=0; i<11;i++) {
             System.out.println(i+" :"+ bonusCpt[i][1]);
-        }
+        }*/
         sql = "SELECT Test_Table.annee_numero_de_tirage, Test_Table.numero_chance FROM myny.Test_Table ORDER BY Test_Table.numero_chance; ";
         try {
             conn = maDB.getConnection();
@@ -270,7 +280,7 @@ public class Choix {
                 k++;
             }
             bonusId[rs.getInt(2)][k]=rs.getInt(1);
-            System.out.println(bonusId[rs.getInt(2)][k]);
+            //System.out.println(bonusId[rs.getInt(2)][k]);
             numprec=rs.getInt(2);
         }
         k=0;
@@ -300,6 +310,7 @@ public class Choix {
                         num1_bonusCpt[i]++;
                         num1_bonusId[i][cpt++]=bonusId[i][k];
                         j++;
+                        k=0;
                     }
                     k++;
                 }
@@ -339,6 +350,7 @@ public class Choix {
                         num2_bonusCpt[i]++;
                         num2_bonusId[i][cpt++]=bonusId[i][k];
                         j++;
+                        k=0;
                     }
                     k++;
                 }
@@ -348,7 +360,7 @@ public class Choix {
             j = 0;
             cpt=0;
         }
-        for (int i=1; i<11;i++) {
+        for (int i=0; i<11;i++) {
             /*for (int p=1; p<50;p++) {
                 System.out.print(combi1Id[i][p]+", ");
             }*/
@@ -376,9 +388,11 @@ public class Choix {
                 while (bonusId[i][k] != 0) {
                     //System.out.println(combi2Id[chiffre3][j] +"=="+  bonusId[i][k]);
                     if (bonusId[i][k] == combi2Id[chiffre3][j]) {
-                        num3_bonusCpt[i]++;
-                        num3_bonusId[i][cpt++]=bonusId[i][k];
+                        //num3_bonusCpt[i]++;
+                        //num3_bonusId[i][cpt++]=bonusId[i][k];
+                        num3_bonusId[i][(int) num3_bonusCpt[i]++]=bonusId[i][k];
                         j++;
+                        k=0;
                     }
                     k++;
                 }
@@ -388,8 +402,8 @@ public class Choix {
             j++;
         }
         for (int i=1; i<11;i++) {
-            /*for (int p=1; p<50;p++) {
-                System.out.print(combi1Id[i][p]+", ");
+            /*for (int p=0; p<50;p++) {
+                System.out.print(num3_bonusId[i][p]+", ");
             }*/
             System.out.println(i+": "+num3_bonusCpt[i]);
             while(num3_bonusId[i][l]!=0){
@@ -399,6 +413,5 @@ public class Choix {
             System.out.println();
             l=0;
         }
-
     }
 }

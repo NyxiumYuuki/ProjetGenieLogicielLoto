@@ -18,13 +18,13 @@ public class test{
 
 
         Choix c=new Choix();
-        c.setTaille();
+        //c.setTaille();
         //c.afficherChiffre1();
         //c.afficherNumBonus();
         //c.afficherCombinaisons2(4);
         //c.afficherNumBonus(1);
         //c.afficherCombinaisons3(32,16);
         //c.afficherNumBonusCombi2(5,10);
-        //c.afficherNumBonusCombi3(28,14,37);
+        c.afficherNumBonusCombi3(28,14,37);
     }
 }

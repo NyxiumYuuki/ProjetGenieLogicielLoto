@@ -72,7 +72,9 @@ public class DataBase {
             " devise VARCHAR(10));";                                //25 String
             //System.out.println(sql);
         try {
-            conn = DriverManager.getConnection(url);    //connection a la db
+            if(conn==null) {
+                conn = DriverManager.getConnection(url);    //connection a la db
+            }
             if(conn!=null) {
                 stmt = conn.createStatement();          //creation de la declaration
                 res=stmt.executeUpdate(sql);                 //execution de la declaration
@@ -197,7 +199,9 @@ public class DataBase {
         if (nbValAj>0) {//si on a des modifications
             PreparedStatement ps;
             try {
-                conn = this.getConnection();
+                if (conn == null) {
+                    conn = this.getConnection();
+                }
                 if (conn != null) {
                     ps=conn.prepareStatement(sql);
                     for(int a=0;a<nbValAj;a++){//pour chaque case de chaque ligne ajoutée, on va ajouter la valeur
