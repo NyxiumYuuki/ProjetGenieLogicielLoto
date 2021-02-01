@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-public class ChoixTest {
-    Choix c=new Choix();
+public class StatisticsTest {
+    Statistics s =new Statistics();
     //c.setTaille();
     //c.afficherChiffre1();
     //c.afficherNumBonus();
@@ -17,39 +17,39 @@ public class ChoixTest {
 
     @Test
     public void setTaille(){
-        c.setTaille();
+        s.setTaille();
     }
     @Test
     public void afficherChiffre1() throws SQLException{
-        c.afficherChiffre1();
+        s.afficherChiffre1();
     }
     @Test
     public void afficherCombinaisons2() throws SQLException{
-        c.afficherCombinaisons2(4);
+        s.afficherCombinaisons2(4);
     }
 
     @Test
     public void afficherCombinaisons3() throws SQLException{
-        c.afficherCombinaisons3(32,16);
+        s.afficherCombinaisons3(32,16);
     }
 
     @Test
     public void afficherBonus() throws SQLException{
-        c.afficherBonus();
+        s.afficherBonus();
     }
 
     @Test
     public void afficherNumBonus() throws SQLException{
-        c.afficherNumBonus(1);
+        s.afficherNumBonus(1);
     }
 
     @Test
     public void afficherNumBonusCombi2() throws SQLException{
-        c.afficherNumBonusCombi2(5,10);
+        s.afficherNumBonusCombi2(5,10);
     }
 
     @Test
     public void afficherNumBonusCombi3() throws SQLException{
-        c.afficherNumBonusCombi3(28,14,37);
+        s.afficherNumBonusCombi3(28,14,37);
     }
 }

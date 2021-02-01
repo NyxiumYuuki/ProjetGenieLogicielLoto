@@ -1,13 +1,8 @@
 //import com.opencsv.CSVReader;
 //import com.opencsv.exceptions.CsvException;
-import fr.myny.database.DataBase;
-import fr.myny.stats.Choix;
+import fr.myny.stats.Statistics;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.sql.*;
-import java.util.*;
-import java.io.*;
 //import com.opencsv.CSVReader;
 
 public class test{
@@ -17,7 +12,7 @@ public class test{
         System.out.println("Il Je test les branchs");
 
 
-        Choix c=new Choix();
+        Statistics c=new Statistics();
         //c.setTaille();
         //c.afficherChiffre1();
         //c.afficherNumBonus();
