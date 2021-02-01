@@ -26,6 +26,27 @@ public class Choix {
     public long num2_bonusCpt[];
     public long num3_bonusId[][];
     public long num3_bonusCpt[];
+    public long taille;
+
+    public void setTaille(){
+        try {
+            conn = maDB.getConnection();
+            if (conn != null) {
+                Statement ps = conn.createStatement();
+                ResultSet rs=ps.executeQuery("SELECT Count(*) From myny.Test_Table");
+                rs.next();
+                long nbcolret= rs.getLong(1);
+                conn.commit();
+                System.out.println("statement cree");
+                taille =nbcolret;
+                System.out.println(taille);
+            }
+        } catch (SQLException e) {
+            System.out.println("chiffre1 probleme");
+            System.out.println(e.getMessage());
+        }
+
+    }
     public Choix(){
         maDB=new DataBase();
         maDB.getConnection();
@@ -112,7 +133,7 @@ public class Choix {
             //j=0;
         }
         for (int i=1; i<50;i++) {
-            System.out.println(i+":");
+            System.out.println(i+":"+numCpt[i][1]);
             while(numId[i][l]!=0){
                 System.out.print(numId[i][l]+", ");
                 l++;
