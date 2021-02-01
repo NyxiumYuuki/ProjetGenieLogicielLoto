@@ -24,12 +24,12 @@ public class ChoixTest {
         c.afficherChiffre1();
     }
     @Test
-    public void afficherCombinaisons2(int chiffre1) throws SQLException{
+    public void afficherCombinaisons2() throws SQLException{
         c.afficherCombinaisons2(4);
     }
 
     @Test
-    public void afficherCombinaisons3(int chiffre1, int chiffre2) throws SQLException{
+    public void afficherCombinaisons3() throws SQLException{
         c.afficherCombinaisons3(32,16);
     }
 
@@ -39,17 +39,17 @@ public class ChoixTest {
     }
 
     @Test
-    public void afficherNumBonus(int chiffre1) throws SQLException{
+    public void afficherNumBonus() throws SQLException{
         c.afficherNumBonus(1);
     }
 
     @Test
-    public void afficherNumBonusCombi2(int chiffre1, int chiffre2) throws SQLException{
+    public void afficherNumBonusCombi2() throws SQLException{
         c.afficherNumBonusCombi2(5,10);
     }
 
     @Test
-    public void afficherNumBonusCombi3(int chiffre1, int chiffre2, int chiffre3) throws SQLException{
+    public void afficherNumBonusCombi3() throws SQLException{
         c.afficherNumBonusCombi3(28,14,37);
     }
 }

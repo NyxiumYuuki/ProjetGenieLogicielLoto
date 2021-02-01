@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * La classe Choix qui sert à donner le nombre d'appartition de chaque chiffre/combinaison (et leurs ID si besoin)
+ * La classe Choix qui sert a donner le nombre d'appartition de chaque chiffre/combinaison (et leurs ID si besoin)
  */
 
 
@@ -34,10 +34,10 @@ public class Choix {
     public long taille;
 
     /**
-     * Constructeur, chargé d'initialiser les differents champs
-     * Pour les tableaux, leurs tailles (de 4000) sont surevaluees pour pouvoir augmenter quandla table augmentera
-     * Une solution optimale serait de fonctionner par exmple avec des TreeMap ou des ArrayLists a la place, pour eviter
-     * d'utiliser trop de memoire inutilement
+     * Constructeur, charge d'initialiser les differents champs
+     * <p>Pour les tableaux, leurs tailles (de 4000) sont surevaluees pour pouvoir augmenter quandla table augmentera</p>
+     * <p>Une solution optimale serait de fonctionner par exmple avec des TreeMap ou des ArrayLists a la place, pour eviter</p>
+     * <p>d'utiliser trop de memoire inutilement</p>
      */
     public Choix(){
         maDB=new DataBase();
@@ -87,9 +87,10 @@ public class Choix {
 
     /**
      * Sert a recuperer le nombre d'apparitions de chaque numero ainsi que leurs id (annee_numero_de_tirage) de la table dans la db
-     * i, k, l (int) sont des compteurs
-     * numprec(int) verifie si on change de chiffre ou non
-     * rs (ResultSet) sert a avoir des retours sur les requetes realisees
+     * <p>i, k, l (int) sont des compteurs</p>
+     * <p>numprec(int) verifie si on change de chiffre ou non</p>
+     * <p>rs (ResultSet) sert a avoir des retours sur les requetes realisees</p>
+     * @throws SQLException si erreur SQL
      */
     //TODO: enlever l'affichage
     public void afficherChiffre1() throws SQLException {
@@ -168,11 +169,10 @@ public class Choix {
     }
 
     /**
+     * On va essayer de trouver les correspondances d'identifiants entre le chiffre entre en parametre et les chiffres dans les lignes de la tables, pour les stocker dans un tableau, et sur un second qui va compter les correspondances entre le premier et les seconds chiffres potentiels
      * @param  chiffre1 (int) le chiffre donne;
-     * i, j, k, l (int) sont des compteurs
-     * On va essayer de trouver les correspondances d'identifiants entre le chiffre entre en parametre
-     * et les chiffres dans les lignes de la tables, pour les stocker dans un tableau, et sur un
-     * second qui va compter les correspondances entre le premier et les seconds chiffres potentiels
+     * <p>i, j, k, l (int) sont des compteurs</p>
+     * @throws SQLException si erreur SQL
      */
     //TODO: enlever l'affichage
     public void afficherCombinaisons2(int chiffre1) throws SQLException {
@@ -214,12 +214,11 @@ public class Choix {
     }
 
     /**
+     * On va essayer de trouver les correspondances d'identifiants entre les 2 chiffres entres en parametre et les chiffres dans les lignes de la tables, pour les stocker dans un tableau, et sur un second qui va compter les correspondances entre le premier, le second et les troisièmes chiffres potentiels
      * @param  chiffre1, (int) le premier chiffre donne;
      * @param  chiffre2, (int) le second chiffre donne;
-     * i, j, k (int) sont des compteurs
-     * On va essayer de trouver les correspondances d'identifiants entre les 2 chiffres entres en parametre
-     * et les chiffres dans les lignes de la tables, pour les stocker dans un tableau, et sur un
-     * second qui va compter les correspondances entre le premier, le second et les troisièmes chiffres potentiels
+     * <p>i, j, k (int) sont des compteurs</p>
+     * @throws SQLException si erreur SQL
      */
     //TODO: enlever l'affichage
     public void afficherCombinaisons3(int chiffre1, int chiffre2) throws SQLException {
@@ -259,11 +258,11 @@ public class Choix {
     }
 
     /**
-     * Sert a recuperer le nombre d'apparitions de chaque numero bonus ainsi que
-     * leurs id (annee_numero_de_tirage) de la table dans la db
-     * i, k, l (int) sont des compteurs
-     * numprec(int) verifie si on change de chiffre ou non
-     * rs (ResultSet) sert a avoir des retours sur les requetes realisees
+     * Sert a recuperer le nombre d'apparitions de chaque numero bonus ainsi que leurs id (annee_numero_de_tirage) de la table dans la db
+     * <p>i, k, l (int) sont des compteurs</p>
+     * <p>numprec(int) verifie si on change de chiffre ou non</p>
+     * <p>rs (ResultSet) sert a avoir des retours sur les requetes realisees</p>
+     * @throws SQLException si erreur SQL
      */
     //TODO: enlever l'affichage
     public void afficherBonus() throws SQLException {
@@ -332,11 +331,10 @@ public class Choix {
     }
 
     /**
+     * On va essayer de trouver les correspondances d'identifiants entre le chiffre entre en parametre et les chiffres bonus potentiels dans les lignes de la tables, pour les stocker dans un tableau, et sur un second qui va compter les correspondances entre le premier chiffre et les seconds chiffres bonus potentiels
      * @param  chiffre1, (int) le chiffre donne;
-     * i, j, k, l (int) sont des compteurs
-     * On va essayer de trouver les correspondances d'identifiants entre le chiffre entre en parametre
-     * et les chiffres bonus potentiels dans les lignes de la tables, pour les stocker dans un tableau, et sur un
-     * second qui va compter les correspondances entre le premier chiffre et les seconds chiffres bonus potentiels
+     * <p>i, j, k, l (int) sont des compteurs</p>
+     * @throws SQLException si erreur SQL
      */
     //TODO: enlever l'affichage
     public void afficherNumBonus(int chiffre1) throws SQLException {
@@ -379,12 +377,11 @@ public class Choix {
     }
 
     /**
+     * On va essayer de trouver les correspondances d'identifiants entre les 2 chiffres entres en parametre et les chiffres bonus potentiels dans les lignes de la tables, pour les stocker dans un tableau, et sur un second qui va compter les correspondances entre le premier chifre, le second chiffre et les chiffres bonus potentiels
      * @param  chiffre1, (int) le premier chiffre donne;
      * @param  chiffre2, (int) le second chiffre donne;
-     * i, j, k, l, cpt (int) sont des compteurs
-     * On va essayer de trouver les correspondances d'identifiants entre les 2 chiffres entres en parametre
-     * et les chiffres bonus potentiels dans les lignes de la tables, pour les stocker dans un tableau, et sur un
-     * second qui va compter les correspondances entre le premier chifre, le second chiffre et les chiffres bonus potentiels
+     * <p>i, j, k, l, cpt (int) sont des compteurs</p>
+     * @throws SQLException si erreur SQL
      */
     //TODO: enlever l'affichage
     public void afficherNumBonusCombi2(int chiffre1, int chiffre2) throws SQLException {
@@ -428,13 +425,12 @@ public class Choix {
     }
 
     /**
+     * On va essayer de trouver les correspondances d'identifiants entre les 3 chiffres entres en parametre et les chiffres bonus potentiels dans les lignes de la tables, pour les stocker dans un tableau, et sur un second qui va compter les correspondances entre le premier chifre, le second chiffre, le troisieme chiffre et les chiffres bonus potentiels
      * @param  chiffre1, (int) le premier chiffre donne;
      * @param  chiffre2, (int) le second chiffre donne;
-     * @param  chiffre2, (int) le troisieme chiffre donne;
-     * i, j, k, l (int) sont des compteurs
-     * On va essayer de trouver les correspondances d'identifiants entre les 3 chiffres entres en parametre
-     * et les chiffres bonus potentiels dans les lignes de la tables, pour les stocker dans un tableau, et sur un
-     * second qui va compter les correspondances entre le premier chifre, le second chiffre, le troisieme chiffre et les chiffres bonus potentiels
+     * @param  chiffre3, (int) le troisieme chiffre donne;
+     * <p>i, j, k, l (int) sont des compteurs</p>
+     * @throws SQLException si erreur SQL
      */
     //TODO: enlever l'affichage
     public void afficherNumBonusCombi3(int chiffre1, int chiffre2, int chiffre3) throws SQLException {
