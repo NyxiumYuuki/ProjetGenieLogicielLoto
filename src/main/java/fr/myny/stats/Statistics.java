@@ -58,8 +58,9 @@ public class Statistics {
     /**
      * Methode renvoyant les numeros avec leur frequence d'apparition
      * @throws SQLException
+     * @return affichage numeros
      */
-    public int[][] numero1() throws SQLException {
+    public String numero1() throws SQLException {
         System.out.println("debut numero1");
         int k=0, numprec=0, l=0;
         ResultSet rs=null;
@@ -124,24 +125,25 @@ public class Statistics {
             k=0;
             //j=0;
         }
+        String s = null;
         for (int i=1; i<50;i++) {
-            System.out.println(i+":");
+            s = i+":\n";
             while(numId[i][l]!=0){
-                System.out.print(numId[i][l]+", ");
+                s = s +numId[i][l]+", ";
                 l++;
             }
-            System.out.println();
             l=0;
         }
-        return (int)numId[0][0];
+        return s;
     }
 
     /**
      * Methode renvoyant les combinaisons a deux numeros en fonction du premier numero choisi
      * @param chiffre1 premiere combinaison
      * @throws SQLException
+     * @return affichage combinaison
      */
-    public void combinaison2(int chiffre1) throws SQLException {
+    public String combinaison2(int chiffre1) throws SQLException {
         numero1();
         System.out.println("debut combinaison2");
         numSelect[1]=chiffre1;
@@ -164,19 +166,19 @@ public class Statistics {
             }
             cpt=0;
         }
+        String s = null;
         for (int i=1; i<50;i++) {
             /*for (int p=1; p<50;p++) {
                 System.out.print(combi1Id[i][p]+", ");
             }*/
-            System.out.println(i+": "+combi1Cpt[i]);
+            s = i+": "+combi1Cpt[i]+"\n";
             while(combi1Id[i][l]!=0){
-                System.out.print(combi1Id[i][l]+", ");
+                s = s + combi1Id[i][l]+", ";
                 l++;
             }
-            System.out.println();
             l=0;
         }
-
+        return s;
     }
 
     /**
@@ -184,8 +186,9 @@ public class Statistics {
      * @param chiffre1
      * @param chiffre2
      * @throws SQLException
+     * @return affichage combinaison
      */
-    public void combinaison3(int chiffre1, int chiffre2) throws SQLException {
+    public String combinaison3(int chiffre1, int chiffre2) throws SQLException {
         numero1();
         combinaison2(chiffre1);
         System.out.println("debut combinaison3");
@@ -209,26 +212,28 @@ public class Statistics {
             }
             cpt=0;
         }
+        String s = null;
         for (int i=1; i<50;i++) {
             /*for (int p=1; p<50;p++) {
                 System.out.print(combi1Id[i][p]+", ");
             }*/
-            System.out.println(i+": "+combi2Cpt[i]);
+            s = i+": "+combi2Cpt[i]+"\n";
             while(combi2Id[i][k]!=0){
-                System.out.print(combi2Id[i][k]+", ");
+                s = s+ combi2Id[i][k]+", ";
                 k++;
             }
             System.out.println();
             k=0;
         }
-
+        return s;
     }
 
     /**
      * Methode renvoyant les numeros bonus avec leur frequence d'apparition
      * @throws SQLException
+     * @return affichage numero bonus
      */
-    public void bonus() throws SQLException {
+    public String bonus() throws SQLException {
         System.out.println("debut bonus");
         int k=0, numprec=0, l=0;
         ResultSet rs=null;
@@ -283,23 +288,26 @@ public class Statistics {
         }
         k=0;
         //j=0;
+        String s = null;
         for (int i=1; i<11;i++) {
-            System.out.println(i+":"+bonusCpt[i][1]);
+            s = i+":"+bonusCpt[i][1]+"\n";
             while(bonusId[i][l]!=0){
-                System.out.print(bonusId[i][l]+", ");
+                s = s + bonusId[i][l]+", ";
                 l++;
             }
             System.out.println();
             l=0;
         }
+        return s;
     }
 
     /**
-     * Methode renvoyant les numeros bonus en fonction des combinaisons à un numeros
+     * Methode renvoyant les numeros bonus en fonction des combinaisons a un numeros
      * @param chiffre1
      * @throws SQLException
+     * @return affchage combinaison a un element et numero bonus
      */
-    public void bonusCombi1(int chiffre1) throws SQLException {
+    public String bonusCombi1(int chiffre1) throws SQLException {
         numero1();
         this.bonus();
         System.out.println("debut bonus");
@@ -322,6 +330,7 @@ public class Statistics {
             j = 0;
             cpt=0;
         }
+        String s = null;
         for (int i=1; i<11;i++) {
             /*for (int p=1; p<50;p++) {
                 System.out.print(combi1Id[i][p]+", ");
@@ -334,16 +343,17 @@ public class Statistics {
             System.out.println();
             l=0;
         }
-
+        return s;
     }
 
     /**
-     * Methode renvoyant les numeros bonus en fonction des combinaisons à deux numeros
+     * Methode renvoyant les numeros bonus en fonction des combinaisons a deux numeros
      * @param chiffre1
      * @param chiffre2
      * @throws SQLException
+     * @return affchage combinaison a deux elements et numero bonus
      */
-    public void bonusCombi2(int chiffre1, int chiffre2) throws SQLException {
+    public String bonusCombi2(int chiffre1, int chiffre2) throws SQLException {
         combinaison2(chiffre1);
         bonus();
         System.out.println("debut bonusCombi2");
@@ -367,6 +377,7 @@ public class Statistics {
             j = 0;
             cpt=0;
         }
+        String s = null;
         for (int i=1; i<11;i++) {
             /*for (int p=1; p<50;p++) {
                 System.out.print(combi1Id[i][p]+", ");
@@ -379,17 +390,18 @@ public class Statistics {
             System.out.println();
             l=0;
         }
-
+        return s;
     }
 
     /**
-     * Methode renvoyant les numeros bonus en fonction des combinaisons à trois numeros
+     * Methode renvoyant les numeros bonus en fonction des combinaisons a trois numeros
      * @param chiffre1
      * @param chiffre2
      * @param chiffre3
      * @throws SQLException
+     * @return affchage combinaison a trois elements et numero bonus
      */
-    public void bonusCombi3(int chiffre1, int chiffre2, int chiffre3) throws SQLException {
+    public String bonusCombi3(int chiffre1, int chiffre2, int chiffre3) throws SQLException {
         combinaison3(chiffre1, chiffre2);
         bonus();
         System.out.println("debut bonusCombi3");
@@ -425,6 +437,8 @@ public class Statistics {
             System.out.println();
             l=0;
         }
+        String s = null;
+        return s;
 
     }
 }
