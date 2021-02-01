@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.myny.gui.PrimaryController">
+   <children>
+      <AnchorPane layoutX="859.0" prefHeight="900.0" prefWidth="741.0">
+         <children>
+            <Button layoutX="106.0" layoutY="331.0" onAction="#switchToSecondary" prefHeight="65.0" prefWidth="230.0" text="Switch to Secondary View" />
+         </children></AnchorPane>
+      <AnchorPane layoutX="-2.0" prefHeight="900.0" prefWidth="855.0">
+         <children>
+            <Line endX="253.0" endY="825.0" layoutX="612.0" layoutY="75.0" startX="-38.0" startY="-75.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

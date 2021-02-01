@@ -1,4 +1,4 @@
-# ProjetGenieLogicielLoto
+# ProjetGenieLogicielLoto ![Build with Maven](https://github.com/NyxiumYuuki/ProjetGenieLogicielLoto/workflows/Java%20CI%20with%20Maven/badge.svg)
 ## Introduction
 *Ce projet permet de valider les connaissances en matière de Génie Logiciel dans le cadre du programme au sein de Polytech Marseille en Informatique. Ce projet consiste à créer un logiciel qui a pour objectif de réduire les pertes financières  lorsque l'on joue à des jeux de hasard, en l'occurence au Loto de la [Française Des Jeux](https://fdj.fr) en respectant le bon déroulement d'un projet.*
 
