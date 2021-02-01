@@ -1,0 +1,6 @@
+module:fr.myny.gui
+fr.myny.data
+fr.myny.database
+fr.myny.grid
+fr.myny.gui
+fr.myny.stats

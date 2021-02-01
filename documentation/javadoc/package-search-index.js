@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"fr.myny.gui","l":"fr.myny.data"},{"m":"fr.myny.gui","l":"fr.myny.database"},{"m":"fr.myny.gui","l":"fr.myny.grid"},{"m":"fr.myny.gui","l":"fr.myny.gui"},{"m":"fr.myny.gui","l":"fr.myny.stats"}];updateSearchResults();
