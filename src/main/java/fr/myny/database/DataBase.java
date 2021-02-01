@@ -46,7 +46,4 @@ public class DataBase {
 
     }
 
-    public Connection getConnection() {
-        return null;
-    }
 }
