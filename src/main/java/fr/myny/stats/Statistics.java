@@ -14,7 +14,6 @@ public class Statistics {
     public DataBase maDB;
     public Connection conn;
     public long numSelect[];
-    public int bonusSelect;
     public long numId[][];
     public long numCpt[][];
     public long bonusId[][];
@@ -25,10 +24,6 @@ public class Statistics {
     public long combi2Cpt[];
     public long num1_bonusId[][];
     public long num1_bonusCpt[];
-    public long num2_bonusId[][];
-    public long num2_bonusCpt[];
-    public long num3_bonusId[][];
-    public long num3_bonusCpt[];
 
 
     /**
@@ -44,10 +39,6 @@ public class Statistics {
         combi1Cpt = new long[50];
         num1_bonusId = new long[11][4000];
         num1_bonusCpt = new long[11];
-        num2_bonusId = new long[11][4000];
-        num2_bonusCpt = new long[11];
-        num3_bonusId = new long[11][4000];
-        num3_bonusCpt = new long[11];
         combi2Id = new long[50][4000];
         combi2Cpt = new long[50];
         bonusId = new long[11][4000];
