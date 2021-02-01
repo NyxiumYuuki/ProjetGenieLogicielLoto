@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+/**
+ * Classe d'extraction de fichier Zip
+ */
 public class DataCsv {
 
     protected String destination;
