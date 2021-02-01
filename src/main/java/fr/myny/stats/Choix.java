@@ -7,31 +7,41 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * La classe Choix qui sert à donner le nombre d'appartition de chaque chiffre/combinaison (et leurs ID si besoin)
+ */
+
+
 public class Choix {
     public DataBase maDB;
     public Connection conn;
     public long numSelect[];
     public int bonusSelect;
-    public long numId[][];
-    public long numCpt[][];
-    public long bonusId[][];
-    public long bonusCpt[][];
-    public long combi1Id[][];
-    public long combi1Cpt[];
-    public long combi2Id[][];
-    public long combi2Cpt[];
-    public long num1_bonusId[][];
-    public long num1_bonusCpt[];
-    public long num2_bonusId[][];
-    public long num2_bonusCpt[];
-    public long num3_bonusId[][];
-    public long num3_bonusCpt[];
+    public long numId[][];          //liste des identifiants des lignes contenant un chiffre specifique
+    public long numCpt[][];         //total d'apparitions de chaque chiffre
+    public long bonusId[][];        //liste des identifiants des lignes contenant un chiffre bonus specifique
+    public long bonusCpt[][];       //total d'apparitions de chaque bonus
+    public long combi1Id[][];       //liste des identifiants des lignes cumulant 2 chiffres specifiques
+    public long combi1Cpt[];        //total d'apparitions de chaque chiffre qui correspond egalement a un premier chiffre sur la meme ligne
+    public long combi2Id[][];       //liste des identifiants des lignes cumulant 3 chiffres specifiques
+    public long combi2Cpt[];        //total d'apparitions de chaque chiffre qui correspond egalement aux 2 premiers chiffres sur la meme ligne
+    public long num1_bonusId[][];   //liste des identifiants des lignes cumulant 1 chiffre specifique et un numero bonus specifique
+    public long num1_bonusCpt[];    //total d'apparitions de chaque bonus qui correspond egalement au premier chiffre sur la meme ligne
+    public long num2_bonusId[][];   //liste des identifiants des lignes cumulant 2 chiffres specifiques et un numero bonus specifique
+    public long num2_bonusCpt[];    //total d'apparitions de chaque bonus qui correspond egalement aux 2 premiers chiffres sur la meme ligne
+    public long num3_bonusId[][];   //liste des identifiants des lignes cumulant 3 chiffres specifiques et un numero bonus specifique
+    public long num3_bonusCpt[];    //total d'apparitions de chaque bonus qui correspond egalement aux 3 premiers chiffres sur la meme ligne
     public long taille;
 
+    /**
+     * Constructeur, chargé d'initialiser les differents champs
+     * Pour les tableaux, leurs tailles (de 4000) sont surevaluees pour pouvoir augmenter quandla table augmentera
+     * Une solution optimale serait de fonctionner par exmple avec des TreeMap ou des ArrayLists a la place, pour eviter
+     * d'utiliser trop de memoire inutilement
+     */
     public Choix(){
         maDB=new DataBase();
         conn= maDB.getConnection();
-        //maDB.getConnection();
         numSelect =new long[5];
         numId =new long[50][4000];
         numCpt = new long[50][2];
@@ -49,7 +59,13 @@ public class Choix {
         bonusCpt=new long[11][2];
     }
 
+    /**
+     * Sert a recuperer la taille de la table pour calculer la frequence d'apparition de la combinaison/du nombre considere
+     */
+    //TODO: enlever l'affichage
     public void setTaille(){
+        /*on effectue un requete "SELECT Count(*) From myny.Test_Table"
+         puis on l'affecte a une variable de l'objet Choix*/
         try {
             conn = maDB.getConnection();
             if (conn != null) {
@@ -69,13 +85,20 @@ public class Choix {
 
     }
 
+    /**
+     * Sert a recuperer le nombre d'apparitions de chaque numero ainsi que leurs id (annee_numero_de_tirage) de la table dans la db
+     * i, k, l (int) sont des compteurs
+     * numprec(int) verifie si on change de chiffre ou non
+     * rs (ResultSet) sert a avoir des retours sur les requetes realisees
+     */
+    //TODO: enlever l'affichage
     public void afficherChiffre1() throws SQLException {
         System.out.println("debut afficherChiffre1");
         int k=0, numprec=0, l=0;
         ResultSet rs=null;
         String sql;
-        int j = 0;
         for (int i=1; i<6;i++) {
+            //pour chaque colonne contenant une boule (non bonus) de la table, on va recuperer le nombre d'apparitions de chaque boule et le stocker dans un tableau
             sql = "SELECT  Test_Table.boule_" + i + ",Count(*) as 'cnt' FROM myny.Test_Table GROUP BY Test_Table.boule_" + i + "; ";
             try {
                 if(conn==null) {
@@ -91,8 +114,6 @@ public class Choix {
                 System.out.println("chiffre1 probleme");
                 System.out.println(e.getMessage());
             }
-
-            //rs.next();
             while (rs.next()) {
                 if (i == 1) {
                     numCpt[rs.getInt(1)][0] = rs.getInt(1);
@@ -100,13 +121,11 @@ public class Choix {
                 } else {
                     numCpt[rs.getInt(1)][1] += rs.getLong(2);
                 }
-                j++;
             }
-            j=0;
         }
-        //for (int i=0; i<50;i++) {            System.out.println(i+" :"+ numCpt[i][1]);        }
-
         for (int i=1; i<=5;i++) {
+            //pour chaque colonne contenant une boule (non bonus) de la table, on va
+            // recuperer les annee_numero_de_tirage correspondants et les stocker dans un tableau
             sql = "SELECT Test_Table.annee_numero_de_tirage, Test_Table.boule_" + i + " FROM myny.Test_Table ORDER BY Test_Table.boule_" + i + "; ";
             try {
                 if(conn==null) {
@@ -136,7 +155,6 @@ public class Choix {
                 numprec=rs.getInt(2);
             }
             k=0;
-            //j=0;
         }
         for (int i=1; i<50;i++) {
             System.out.println(i+":"+numCpt[i][1]);
@@ -149,11 +167,19 @@ public class Choix {
         }
     }
 
+    /**
+     * @param  chiffre1 (int) le chiffre donne;
+     * i, j, k, l (int) sont des compteurs
+     * On va essayer de trouver les correspondances d'identifiants entre le chiffre entre en parametre
+     * et les chiffres dans les lignes de la tables, pour les stocker dans un tableau, et sur un
+     * second qui va compter les correspondances entre le premier et les seconds chiffres potentiels
+     */
+    //TODO: enlever l'affichage
     public void afficherCombinaisons2(int chiffre1) throws SQLException {
         afficherChiffre1();
         System.out.println("debut afficherCombinaisons2");
         numSelect[1]=chiffre1;
-        int j=0, k=0, l=0, cpt=0;
+        int j=0, k=0, l=0;
         while (numId[chiffre1][j] != 0) {
             for(int i=1;i<50;i++) {
                 if (i != chiffre1) {
@@ -171,7 +197,6 @@ public class Choix {
                 }
             }
             j++;
-            cpt=0;
         }
         for (int i=1; i<50;i++) {
             /*for (int p=0; p<50;p++) {
@@ -188,22 +213,27 @@ public class Choix {
 
     }
 
+    /**
+     * @param  chiffre1, (int) le premier chiffre donne;
+     * @param  chiffre2, (int) le second chiffre donne;
+     * i, j, k (int) sont des compteurs
+     * On va essayer de trouver les correspondances d'identifiants entre les 2 chiffres entres en parametre
+     * et les chiffres dans les lignes de la tables, pour les stocker dans un tableau, et sur un
+     * second qui va compter les correspondances entre le premier, le second et les troisièmes chiffres potentiels
+     */
+    //TODO: enlever l'affichage
     public void afficherCombinaisons3(int chiffre1, int chiffre2) throws SQLException {
         //afficherChiffre1();
         afficherCombinaisons2(chiffre1);
         System.out.println("debut afficherCombinaisons3");
         numSelect[2]=chiffre2;
-        int j=0, k=0, m=0, cpt=0;
+        int j=0, k=0;
         while (combi1Id[chiffre2][j] != 0){
             for(int i=1;i<50;i++) {
                 if (i != chiffre1 && i!=chiffre2) {
                     while (numId[i][k] != 0) {
-                        //System.out.println(numId[i][k] +"=="+ combi1Id[chiffre2][j]);
                         if (numId[i][k] == combi1Id[chiffre2][j]) {
-                            //combi2Cpt[i]++;
                             combi2Id[i][(int)combi2Cpt[i]++]=numId[i][k];
-                            //j++;
-                            //k=0;
                         }
                         k++;
                     }
@@ -211,7 +241,6 @@ public class Choix {
                 }
             }
             j++;
-            cpt=0;
         }
         k = 0;
         for (int i=1; i<50;i++) {
@@ -229,6 +258,14 @@ public class Choix {
 
     }
 
+    /**
+     * Sert a recuperer le nombre d'apparitions de chaque numero bonus ainsi que
+     * leurs id (annee_numero_de_tirage) de la table dans la db
+     * i, k, l (int) sont des compteurs
+     * numprec(int) verifie si on change de chiffre ou non
+     * rs (ResultSet) sert a avoir des retours sur les requetes realisees
+     */
+    //TODO: enlever l'affichage
     public void afficherBonus() throws SQLException {
         System.out.println("debut afficherBonus");
         int k=0, numprec=0, l=0;
@@ -283,8 +320,6 @@ public class Choix {
             //System.out.println(bonusId[rs.getInt(2)][k]);
             numprec=rs.getInt(2);
         }
-        k=0;
-        //j=0;
         for (int i=1; i<11;i++) {
             System.out.println(i+":"+bonusCpt[i][1]);
             while(bonusId[i][l]!=0){
@@ -296,6 +331,14 @@ public class Choix {
         }
     }
 
+    /**
+     * @param  chiffre1, (int) le chiffre donne;
+     * i, j, k, l (int) sont des compteurs
+     * On va essayer de trouver les correspondances d'identifiants entre le chiffre entre en parametre
+     * et les chiffres bonus potentiels dans les lignes de la tables, pour les stocker dans un tableau, et sur un
+     * second qui va compter les correspondances entre le premier chiffre et les seconds chiffres bonus potentiels
+     */
+    //TODO: enlever l'affichage
     public void afficherNumBonus(int chiffre1) throws SQLException {
         afficherChiffre1();
         this.afficherBonus();
@@ -335,6 +378,15 @@ public class Choix {
 
     }
 
+    /**
+     * @param  chiffre1, (int) le premier chiffre donne;
+     * @param  chiffre2, (int) le second chiffre donne;
+     * i, j, k, l, cpt (int) sont des compteurs
+     * On va essayer de trouver les correspondances d'identifiants entre les 2 chiffres entres en parametre
+     * et les chiffres bonus potentiels dans les lignes de la tables, pour les stocker dans un tableau, et sur un
+     * second qui va compter les correspondances entre le premier chifre, le second chiffre et les chiffres bonus potentiels
+     */
+    //TODO: enlever l'affichage
     public void afficherNumBonusCombi2(int chiffre1, int chiffre2) throws SQLException {
         afficherCombinaisons2(chiffre1);
         afficherBonus();
@@ -375,6 +427,16 @@ public class Choix {
 
     }
 
+    /**
+     * @param  chiffre1, (int) le premier chiffre donne;
+     * @param  chiffre2, (int) le second chiffre donne;
+     * @param  chiffre2, (int) le troisieme chiffre donne;
+     * i, j, k, l (int) sont des compteurs
+     * On va essayer de trouver les correspondances d'identifiants entre les 3 chiffres entres en parametre
+     * et les chiffres bonus potentiels dans les lignes de la tables, pour les stocker dans un tableau, et sur un
+     * second qui va compter les correspondances entre le premier chifre, le second chiffre, le troisieme chiffre et les chiffres bonus potentiels
+     */
+    //TODO: enlever l'affichage
     public void afficherNumBonusCombi3(int chiffre1, int chiffre2, int chiffre3) throws SQLException {
         afficherCombinaisons3(chiffre1, chiffre2);
         afficherBonus();
@@ -382,7 +444,7 @@ public class Choix {
         numSelect[1]=chiffre1;
         numSelect[2]=chiffre2;
         numSelect[3]=chiffre3;
-        int j=0, k=0, l=0, cpt=0;
+        int j=0, k=0, l=0;
         while (combi2Id[chiffre3][j] != 0) {
             for(int i=1;i<11;i++) {
                 while (bonusId[i][k] != 0) {
@@ -398,7 +460,6 @@ public class Choix {
                 }
                 k = 0;
             }
-            cpt=0;
             j++;
         }
         for (int i=1; i<11;i++) {
